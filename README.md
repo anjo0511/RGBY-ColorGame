@@ -1,7 +1,7 @@
 # RGBY-ColorGame
 
 
-Andreé
+Andreé Johnsson
 
 Main window, instructions,all popoups ish
 blink, blinkar given en sekvens 
