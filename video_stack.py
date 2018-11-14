@@ -1,6 +1,13 @@
 from tkinter import *
 import tkinter.messagebox
+import random
 
+def meassageBox(txtTitle,txtstring):
+    tkinter.messagebox.showinfo(txtTitle,txtstring)
+
+def questionBox(txtTitle,txtstring):
+    answer = tkinter.messagebox.askquestion(txtTitle,txtstring)
+    return answer
 
 def mainWindow():
     root.title('RGBY-ColorGame 1.0')
@@ -13,28 +20,70 @@ def mainWindow():
     y_coordinate = (screen_height/2-height_of_window/2)
     root.geometry("%dx%d+%d+%d" %(width_of_window,height_of_window,x_coordinate,y_coordinate)) 
 
-def BottonSumulation():
-    answe = input('what botton?: ')
-    if answe == 'R':         
-        button_R.flash()   
+def computerRandomClick():
+    computerRandomClick = random.choice('RYGB')
+    return computerRandomClick
 
+def gameLevelcomputerSequence(level):
+    computerRandomClickList = []
+    for i in range(level):
+        computerRandomClickList.append(computerRandomClick())
+    #print('Seq to remember: ', computerRandomClickList)
+    return computerRandomClickList
 
-def flashClickedButton(event):
-    #event.widget.bell(displayof=0)
-    s= event.widget.cget('text')
+level= 4
+x = gameLevelcomputerSequence(level)
+print('Seq to remember: ', x)
+userColorSequenceList=[]
+passedLevelBol = True
+
+def userClickSequence(colorPressed):    
+#    userColorSequenceList.append(colorPressed)
     
-    if s == 'R':
-        button_R.config(bg='white')
-        button_R.after(100, lambda: button_R.config(bg='red'))
-    elif s == 'G':
-        button_G.config(bg='white')
-        button_G.after(100, lambda: button_G.config(bg='green'))
-    elif s == 'B':
-        button_B.config(bg='white')
-        button_B.after(100, lambda: button_B.config(bg='blue'))
-    elif s == 'Y':
-        button_Y.config(bg='white')
-        button_Y.after(100, lambda: button_Y.config(bg='yellow'))
+    if len(userColorSequenceList) < level:
+        userColorSequenceList.append(colorPressed)
+        print(userColorSequenceList)
+
+        checkIfClickIsCorrect(colorPressed)
+        restartGame()
+
+
+    if len(userColorSequenceList) == level:
+
+        print('Seq user pressed: ',userColorSequenceList)
+
+
+    return userColorSequenceList
+
+def userClickedButton(event):    
+    #event.widget.bell(displayof=0)
+    colorPressed = event.widget.cget('text')
+    userClickSequence(colorPressed)
+
+
+def checkIfClickIsCorrect(colorPressed):
+    computerSeq = x.pop(0)
+    if colorPressed == computerSeq:
+        passedLevelBol = True
+        print('Correct')
+        return passedLevelBol
+
+    else:
+        passedLevelBol = False
+        print('Wrong')
+        return passedLevelBol
+        
+
+def restartGame():
+
+    if passedLevelBol is False:
+        meassageBox('Restart','Click okej to start the countdown')
+        userColorSequenceList=[]
+        x = gameLevelcomputerSequence(level)
+        print(x)
+        return userColorSequenceList,x
+    
+
 
 
 root = Tk()
@@ -73,10 +122,10 @@ button_G['activebackground']=button_G.cget('background')
 button_B['activebackground']=button_B.cget('background')
 button_Y['activebackground']=button_Y.cget('background')
 
-button_R.bind('<Button-1>', flashClickedButton)
-button_G.bind('<Button-1>', flashClickedButton)
-button_B.bind('<Button-1>', flashClickedButton)
-button_Y.bind('<Button-1>', flashClickedButton)
+button_R.bind('<Button-1>', userClickedButton)
+button_G.bind('<Button-1>', userClickedButton)
+button_B.bind('<Button-1>', userClickedButton)
+button_Y.bind('<Button-1>', userClickedButton)
 
 
 root.mainloop() 
