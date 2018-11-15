@@ -8,7 +8,7 @@ external file to later be able to restore the variable in the current session.
 the external file is not readable but it is easy to use.
 '''
 
-class ScoreSheet():
+class ScoreSheetClass():
 
     def __init__(self, sheetName):
 
@@ -37,12 +37,14 @@ class ScoreSheet():
             Kommentarer: if the score given does not belong to the top 10, it wont show
         '''
         # unpickle
-        scoreSheetList = self.getScoreList()
-        scoreSheetList.append([name,score])
-        scoreSheetList = sorted(scoreSheetList, key=itemgetter(1), reverse=True)[:10]
+        self.name=name
+        self.score=score
+        self.scoreSheetList = self.getScoreList()
+        self.scoreSheetList.append([self.name,self.score])
+        self.scoreSheetList = sorted(self.scoreSheetList, key=itemgetter(1), reverse=True)[:10]
         # pickle
         with open(self.sheetName,'wb') as file:
-            pickle.dump(scoreSheetList,file)
+            pickle.dump(self.scoreSheetList,file)
 
     def getScoreList(self):
         ''' 
@@ -51,8 +53,8 @@ class ScoreSheet():
             Kommentarer: 
         '''''
         with open(self.sheetName,'rb') as file:
-            scoreSheetList = pickle.load(file)
-        return scoreSheetList    
+            self.scoreSheetList = pickle.load(file)
+        return self.scoreSheetList    
         
     def printScoreSheet(self):
         ''' 
