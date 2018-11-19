@@ -7,7 +7,7 @@ from tkinter import *
 def countdownWindow(self):
     """
         Syfte: Creates a label which will show time until blink starts using images
-        Returvärde: -
+        Returvï¿½rde: -
         Parametrar: -
     """
     self.countlabel = Label()
@@ -20,7 +20,7 @@ def countdownWindow(self):
 def countdownImageSwap(self, counter = False):
     """
         Syfte: Changes image every second to represent a countdown
-        Returvärde:
+        Returvï¿½rde:
         Parametrar: Counter that controls when the loop shall stop and what image should be displayed.
     """
     if counter:
@@ -42,8 +42,10 @@ def countdownImageSwap(self, counter = False):
 
 
 #The code below can be run to be test the countdown module, simply remove the """ at start and end.
-"""
+
 class countdownWindow(Tk):
+
+    
     def __init__(self):
         Tk.__init__(self)
         self.countlabel = Label()
@@ -73,4 +75,3 @@ class countdownWindow(Tk):
 
 root = countdownWindow()
 root.mainloop()
-"""

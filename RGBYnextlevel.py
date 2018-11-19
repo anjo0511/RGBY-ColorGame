@@ -14,3 +14,4 @@ def nextLevelCommands(self):
     self.nxtlvlpopup.destroy()
     self.level = self.level + 1
     self.countdownWindow()
+
