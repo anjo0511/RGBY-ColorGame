@@ -2,48 +2,66 @@
 from tkinter import * 
 import tkinter.messagebox
 import time
+import random
+from mainGamefile import MainApplicationLayout
 
 '''
 Här ger vi en lista till knapparna som sedan flashar beroende på sekvensen
 '''
 
-buttonList = ['Button 1','Button 1','Button 2','Button 1','Button 2']
-
-def button2_click(buttonList):
-
-    userinput = input('color? ')
-    if userinput != '':
-        time.sleep(1)
-        for eachColor in buttonList:
-            print(eachColor)
-            
-            if eachColor == 'Button 1':
-
-                button1['activebackground']='white'
-                button1.flash()
-                button1.after(2000, lambda:button1.configure(activebackground ='red'))             
+class ComputerSimulation(MainApplicationLayout):
 
 
-            elif eachColor == 'Button 2':
+    def __init__(self,root,scoreSheetName):
+        super().__init__(root,scoreSheetName)
+        self.randomList = []
+        self.level = 5
 
-                button2['activebackground']='white'
-                button2.flash()
-                button2.after(2000, lambda:button2.configure(activebackground ='green'))
-            
-            time.sleep(0.7)
+    def randomClick(self):
+        self.randomColor = random.choice('RYGB')
+        return self.randomColor
 
+    def gameLevelcomputerSequence(self):     
+           
+        for i in range(self.level):
+            self.randomList.append(self.randomClick())
+        #print('Seq to remember: ', randomList)
+        return self.randomList
 
+    def button2_click(self):
+        randomColorList = self.gameLevelcomputerSequence()
+
+        userinput = input('color? ')
+        if userinput != '':
+            time.sleep(1)
+            for eachColor in randomColorList:
+                print(eachColor)
+                
+                if eachColor == 'R':
+                    self.button_R['activebackground']='white'
+                    self.button_R.flash()
+                    self.button_R.after(2000, lambda:self.button_R.configure(activebackground ='red'))          
+                elif eachColor == 'G':
+                    self.button_G['activebackground']='white'
+                    self.button_G.flash()
+                    self.button_G.after(2000, lambda:self.button_G.configure(activebackground ='green'))
+                elif eachColor == 'B':
+                    self.button_B['activebackground']='white'
+                    self.button_B.flash()
+                    self.button_B.after(2000, lambda:self.button_B.configure(activebackground ='blue'))
+                elif eachColor == 'Y':
+                    self.button_Y['activebackground']='white'
+                    self.button_Y.flash()
+                    self.button_Y.after(2000, lambda:self.button_Y.configure(activebackground ='yellow'))
+                time.sleep(0.5)
+                
+        
 
 root = Tk()
-root.geometry('400x200+500+500')
 
-button1 = Button(text="Button 1",bg='red',activebackground='red',height=5)
-button2 = Button(root,text="Button 2",bg='green',activebackground='green',height=5)
+x =ComputerSimulation(root,'top10scoreSheet')
 
-button1.pack()
-button2.pack(side=BOTTOM)
+x.button2_click()
 
-
-button2_click(buttonList)
-root.mainloop()
+root.mainloop() 
 

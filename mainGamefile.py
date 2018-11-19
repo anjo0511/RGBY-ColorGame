@@ -1,7 +1,8 @@
+#
 from tkinter import *
 import tkinter.messagebox
 import random
-
+import time
 from scoreSheetClass import ScoreSheetClass
 
 
@@ -12,8 +13,9 @@ class MainApplicationLayout():
             Syfte: -
             Returvärde: -
             Kommentarer: -
-        '''       
-        self.level = 0 
+        '''    
+        self.userColorSequenceList=[]   
+        self.level = 5 
         self.scoreSheet = scoreSheetName
         self.root = root
         self.rootWindow()       
@@ -57,25 +59,25 @@ class MainApplicationLayout():
             Returvärde: 
             Kommentarer: 
         '''
-        button_R = Button(self.frame2,text='R',bg='red',height=4, width=8,bd=7,relief='raised')
-        button_G = Button(self.frame2,text='G',bg='green',height=4, width=8,bd=7,relief='raised')
-        button_B = Button(self.frame2,text='B',bg='blue',height=4, width=8,bd=7,relief='raised')
-        button_Y = Button(self.frame2,text='Y',bg='yellow',height=4, width=8,bd=7,relief='raised')
+        self.button_R = Button(self.frame2,text='R',bg='red',height=4, width=8,bd=7,relief='raised')
+        self.button_G = Button(self.frame2,text='G',bg='green',height=4, width=8,bd=7,relief='raised')
+        self.button_B = Button(self.frame2,text='B',bg='blue',height=4, width=8,bd=7,relief='raised')
+        self.button_Y = Button(self.frame2,text='Y',bg='yellow',height=4, width=8,bd=7,relief='raised')
 
-        button_R.grid(row=0,column=0)
-        button_G.grid(row=0,column=1)
-        button_B.grid(row=1,column=0)
-        button_Y.grid(row=1,column=1)
+        self.button_R.grid(row=0,column=0)
+        self.button_G.grid(row=0,column=1)
+        self.button_B.grid(row=1,column=0)
+        self.button_Y.grid(row=1,column=1)
 
-        button_R['activebackground']=button_R.cget('background')
-        button_G['activebackground']=button_G.cget('background')
-        button_B['activebackground']=button_B.cget('background')
-        button_Y['activebackground']=button_Y.cget('background')
+        self.button_R['activebackground']=self.button_R.cget('background')
+        self.button_G['activebackground']=self.button_G.cget('background')
+        self.button_B['activebackground']=self.button_B.cget('background')
+        self.button_Y['activebackground']=self.button_Y.cget('background')
 
-        button_R.bind('<Button-1>', self.userClickedButton)
-        button_G.bind('<Button-1>', self.userClickedButton)
-        button_B.bind('<Button-1>', self.userClickedButton)
-        button_Y.bind('<Button-1>', self.userClickedButton)
+        self.button_R.bind('<Button-1>', self.userClickedButton)
+        self.button_G.bind('<Button-1>', self.userClickedButton)
+        self.button_B.bind('<Button-1>', self.userClickedButton)
+        self.button_Y.bind('<Button-1>', self.userClickedButton)
 
 
     def userClickedButton(self,event):    
@@ -85,15 +87,15 @@ class MainApplicationLayout():
 
 
     def userColorList(self,colorPressed):
-        userColorSequenceList=[]    
+        #self.userColorSequenceList=[]    
 
-        if len(userColorSequenceList) < self.level:
-            userColorSequenceList.append(colorPressed)
-            print(userColorSequenceList)
+        if len(self.userColorSequenceList) < self.level:
+            self.userColorSequenceList.append(colorPressed)
+            print(self.userColorSequenceList)
 
-        if len(userColorSequenceList) == self.level:
-            print('Seq user pressed: ', userColorSequenceList)
-        return userColorSequenceList
+        if len(self.userColorSequenceList) == self.level:
+            print('Seq user pressed: ', self.userColorSequenceList)
+        return self.userColorSequenceList
 
 
     def baseLabels(self):
@@ -186,39 +188,39 @@ class MainApplicationLayout():
 
 class ComputerSimulation():
 
-    def computerRandomClick():
-        computerRandomClick = random.choice('RYGB')
-        return computerRandomClick
+    def computerRandomClick(self):
+        self.computerRandomClick = random.choice('RYGB')
+        return self.computerRandomClick
 
-    def gameLevelcomputerSequence(level):
-        computerRandomClickList = []
+    def gameLevelcomputerSequence(self,level):
+        self.computerRandomClickList = []
         for i in range(level):
-            computerRandomClickList.append(computerRandomClick())
+            self.computerRandomClickList.append(self.computerRandomClick())
         #print('Seq to remember: ', computerRandomClickList)
-        return computerRandomClickList
+        return self.computerRandomClickList
 
 '''
 class userGameplay():
     
     def __init__(self):
         
-        self.userColorSequenceList=[]
+        self.self.userColorSequenceList=[]
         self.level= level
     
     def userColorList(self,colorPressed):    
 
-        if len(self.userColorSequenceList) < self.level:
-            self.userColorSequenceList.append(colorPressed)
-            print(self.userColorSequenceList)
+        if len(self.self.userColorSequenceList) < self.level:
+            self.self.userColorSequenceList.append(colorPressed)
+            print(self.self.userColorSequenceList)
 
             
             checkIfClickIsCorrect(colorPressed)
             
          
-        if len(self.userColorSequenceList) == self.level:
-            print('Seq user pressed: ', self.userColorSequenceList)
+        if len(self.self.userColorSequenceList) == self.level:
+            print('Seq user pressed: ', self.self.userColorSequenceList)
 
-        return self.userColorSequenceList
+        return self.self.userColorSequenceList
 
     def userClickedButton(self,event):    
         #event.widget.bell(displayof=0)
@@ -260,17 +262,18 @@ class gameGame(MainApplicationLayout):
 
             if passedLevelBol is False:
                 meassageBox('Restart','Click okej to start the countdown')
-                self.userColorSequenceList=[]
+                self.self.userColorSequenceList=[]
                 x = gameLevelcomputerSequence(level)
                 print(x)
-                return self.userColorSequenceList,x
+                return self.self.userColorSequenceList,x
         '''
 
 
-
+'''
 root = Tk()
 
 
 gameGame(root,'top10scoreSheet')
 
 root.mainloop() 
+'''
