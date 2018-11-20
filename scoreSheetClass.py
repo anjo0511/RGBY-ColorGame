@@ -65,7 +65,7 @@ class ScoreSheetClass():
         '''
         pos = 1
         listOfLists = self.getScoreList()
-        print('  name : score')
+        print('  name : level')
         for miniList in listOfLists:
             name, score = [miniList[0],miniList[1]]
             print(pos,name,':',score)

@@ -4,10 +4,14 @@ from tkinter import *
 import time
 import random
 
-class ButtonFramme:
+class ButtonFrame:
 
     def __init__(self, root, level=5):
-
+        ''' 
+            Syfte: 
+            ReturvÃ¤rde: 
+            Kommentarer: 
+        '''
         self.level = level
         self.root = root
         self.buttonFrame = Frame(
@@ -22,16 +26,31 @@ class ButtonFramme:
         self.randomList = [] 
         self.tmpLevel = self.randomLevelSeq()
     def changeLevel(self,level):
+        ''' 
+            Syfte: 
+            ReturvÃ¤rde: 
+            Kommentarer: 
+        '''
         self.level=level
 
 
     def showFrame(self, bol=None):
+        ''' 
+            Syfte: 
+            ReturvÃ¤rde: 
+            Kommentarer: 
+        '''
         if bol is True:
             self.buttonFrame.pack()
         elif bol is False:
             self.buttonFrame.pack_forget()
 
     def userClickedButton(self,event):    
+        ''' 
+            Syfte: 
+            ReturvÃ¤rde: 
+            Kommentarer: 
+        '''
         #event.widget.bell(displayof=0)
         self.colorPressed = event.widget.cget('text')
         self.userColorList(self.colorPressed)
@@ -39,7 +58,11 @@ class ButtonFramme:
         #print(self.colorPressed)
             
     def liveComparison(self):
-        
+        ''' 
+            Syfte: 
+            ReturvÃ¤rde: 
+            Kommentarer: 
+        '''        
         try:
             x= self.tmpLevel.pop(0)
             if x ==self.colorPressed:
@@ -53,7 +76,11 @@ class ButtonFramme:
             #print('Comparison Ended (Except loop)')
         
     def userColorList(self,colorPressed):
-           
+        ''' 
+            Syfte: 
+            ReturvÃ¤rde: 
+            Kommentarer: 
+        '''           
         if len(self.userColorSequenceList) < self.level:
             self.userColorSequenceList.append(self.colorPressed)
      
@@ -92,17 +119,26 @@ class ButtonFramme:
         self.button_B['activebackground'] = self.button_B.cget('background')
         self.button_Y['activebackground'] = self.button_Y.cget('background')
 
-        self.button_R.bind('<Button-1>', self.userClickedButton)
-        self.button_G.bind('<Button-1>', self.userClickedButton)
-        self.button_B.bind('<Button-1>', self.userClickedButton)
-        self.button_Y.bind('<Button-1>', self.userClickedButton)
+        self.button_R.bind('<ButtonRelease-1>', self.userClickedButton)
+        self.button_G.bind('<ButtonRelease-1>', self.userClickedButton)
+        self.button_B.bind('<ButtonRelease-1>', self.userClickedButton)
+        self.button_Y.bind('<ButtonRelease-1>', self.userClickedButton)
 
     def randomClick(self):
+        ''' 
+            Syfte: 
+            ReturvÃ¤rde: 
+            Kommentarer: 
+        '''
         self.randomColor = random.choice('RYGB')
         return self.randomColor
 
     def randomLevelSeq(self):     
-          
+        ''' 
+            Syfte: 
+            ReturvÃ¤rde: 
+            Kommentarer: 
+        '''          
         for i in range(self.level):
             self.randomList.append(self.randomClick())
         print('Seq to remember: ', self.randomList)
@@ -110,7 +146,11 @@ class ButtonFramme:
 
     
     def simulation(self):
-               
+        ''' 
+            Syfte: 
+            ReturvÃ¤rde: 
+            Kommentarer: 
+        '''               
         
         print(self.tmpLevel)
         time.sleep(1)
@@ -136,29 +176,3 @@ class ButtonFramme:
             time.sleep(0.5)
 
 
-def test():
-    ans = input('Ska jag visa spel planet?: ')
-    if ans == 'y':
-        x.showFrame(True)    
-        time.sleep(3)
-        print("nu bÃ¶rjar vi om 2 sek!")
-        time.sleep(2)
-        x.simulation()
-        ans2 = input('Ska jag byta level och simulera?: ')
-        if ans2 == 'y':
-            x.changeLevel(5)
-            x.simulation()
-
-
-root = Tk()
-
-x = ButtonFramme(root)
-x.showFrame(True)
-use = input('Hey!: ')
-
-if (use != ''):
-    print('nu kör vi')
-    x.simulation()
-
-
-root.mainloop()

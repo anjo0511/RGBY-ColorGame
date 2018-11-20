@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from tkinter import *
-import tkinter.messagebox
-import random
 
+from tkinter import *
 from scoreSheetClass import ScoreSheetClass
+from tkinter import messagebox
 
 class ScoreInputFrame():
 
@@ -13,6 +12,7 @@ class ScoreInputFrame():
             ReturvÃ¤rde: 
             Kommentarer: 
         ''' 
+        self.level = 10
         self.scoreSheet = 'top10scoreSheet'
         self.root =root
         self.frameLayout()
@@ -34,25 +34,39 @@ class ScoreInputFrame():
             ReturvÃ¤rde: 
             Kommentarer: 
         '''         
-        self.scoreInputFrame = Frame(self.root,bd=4,relief='solid',height=180, width=250)
-
+        self.scoreInputFrame = Frame(self.root,bd=4,relief='solid',padx=50)    
         
         nameLabel = Label(self.scoreInputFrame,text='Name: ',font='Times 12 bold') 
-        self.label_meassage=Label(self.scoreInputFrame,bd=1,font='Times 11 bold',padx=10,pady=5,bg='red')
+        self.label_meassage=Label(self.scoreInputFrame,bd=1,font='Times 11 bold',padx=10,pady=5)
 
         self.entry1 = Entry(self.scoreInputFrame)
 
-        spacer1 = Label(self.scoreInputFrame,bg='red')
-        infoLabel = Label(self.scoreInputFrame,pady=4,text='Submit highscore',font='Times 12 bold')
+        spacer1 = Label(self.scoreInputFrame)
+        infoLabel = Label(self.scoreInputFrame,text='Submit your record',font='Times 12 bold',pady=15)
+        
+        self.levelHighscore = StringVar()
+        levelLable = Label(self.scoreInputFrame,textvariable= self.levelHighscore ,font='Times 12 bold',pady=5)
+        self.levelHighscore.set('Level: 1')
         
         button1 = Button(self.scoreInputFrame,font='Times 12 bold',text='Submit',bg='red',bd=7,relief='raised',command = self.storeHighScore)
        
         infoLabel.grid(           row=0, columnspan=2)
-        nameLabel.grid(           row=1, column=0)
-        self.entry1.grid(         row=1, column=1)
-        spacer1.grid(             row=2, columnspan=2)
-        button1.grid(             row=3, columnspan=2)
-        self.label_meassage.grid( row=4, columnspan=2)
+        levelLable.grid(      row=1, columnspan=2)
+        nameLabel.grid(           row=2, column=0)
+        self.entry1.grid(         row=2, column=1)
+        spacer1.grid(             row=3, columnspan=2)
+        button1.grid(             row=4, columnspan=2)
+        self.label_meassage.grid( row=5, columnspan=2)
+    
+    def chageScoreFrame(self,level):
+        ''' 
+            Syfte: 
+            ReturvÃ¤rde: 
+            Kommentarer: 
+        '''
+        self.level = level
+        self.levelHighscore.set('Level: '+ str(self.level))
+    
 
     def storeHighScore(self):
         ''' 
@@ -61,12 +75,10 @@ class ScoreInputFrame():
             Kommentarer: 
         '''        
         if not self.entry1.get() == '':
-            ###This random seq needs to be removed to allow users to enter their scores
-            self.random_score = random.randint(100,2682)
-            print(self.entry1.get(),self.random_score)
-            
-            ScoreSheetClass(self.scoreSheet).scoreWrite(self.entry1.get(),self.random_score)
+            ScoreSheetClass(self.scoreSheet).scoreWrite(self.entry1.get(),self.level)
             ScoreSheetClass(self.scoreSheet).printScoreSheet()
+            x = ScoreSheetClass(self.scoreSheet).getScoreList()
+            messagebox.showinfo("Highscore Board", x)
 
             self.entry1.get()
             self.entry1.delete(0, 'end')
@@ -82,21 +94,12 @@ class ScoreInputFrame():
 
 
 
+root = Tk()
+root.geometry('500x500')
+x = ScoreInputFrame(root)
+x.showFrame(True)
+for i in range(5):
+    x.chageScoreFrame(i)
 
-def test():
-    
-    x=ScoreInputFrame(root)
-    
-    ans = input('Ska jag visa spel inputFramen?: ')
-    if ans == 'y':
-        x.showFrame(True)
-        ans2 = input('Igen?: ')
-        if ans == 'y':
-            x.showFrame(True)
-     
+mainloop()
 
-root =Tk()
-
-test()
-
-root.mainloop()
