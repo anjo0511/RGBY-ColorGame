@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from tkinter import *
 import tkinter.messagebox
 import random
@@ -9,7 +10,7 @@ class ScoreInputFrame():
     def __init__(self,root):
         ''' 
             Syfte: 
-            Returvärde: 
+            ReturvÃ¤rde: 
             Kommentarer: 
         ''' 
         self.scoreSheet = 'top10scoreSheet'
@@ -19,7 +20,7 @@ class ScoreInputFrame():
     def showFrame(self, bol=None):
         ''' 
             Syfte: 
-            Returvärde: 
+            ReturvÃ¤rde: 
             Kommentarer: 
         '''         
         if bol is True:
@@ -30,7 +31,7 @@ class ScoreInputFrame():
     def frameLayout(self):
         ''' 
             Syfte: 
-            Returvärde: 
+            ReturvÃ¤rde: 
             Kommentarer: 
         '''         
         self.scoreInputFrame = Frame(self.root,bd=4,relief='solid',height=180, width=250)
@@ -56,7 +57,7 @@ class ScoreInputFrame():
     def storeHighScore(self):
         ''' 
             Syfte: 
-            Returvärde: 
+            ReturvÃ¤rde: 
             Kommentarer: 
         '''        
         if not self.entry1.get() == '':
@@ -82,17 +83,20 @@ class ScoreInputFrame():
 
 
 
-
+def test():
+    
+    x=ScoreInputFrame(root)
+    
+    ans = input('Ska jag visa spel inputFramen?: ')
+    if ans == 'y':
+        x.showFrame(True)
+        ans2 = input('Igen?: ')
+        if ans == 'y':
+            x.showFrame(True)
+     
 
 root =Tk()
 
-x=ScoreInputFrame(root)
+test()
 
-ans = input('Ska jag visa spel inputFramen?: ')
-if ans == 'y':
-    x.showFrame(True)
-    ans2 = input('Igen?: ')
-    if ans == 'y':
-        x.showFrame(True)
-        
 root.mainloop()

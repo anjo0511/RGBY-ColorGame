@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from tkinter import *
 import tkinter.messagebox
 import random
@@ -10,7 +11,7 @@ class MainApplicationLayout():
     def __init__(self,root,scoreSheetName):
         ''' 
             Syfte: -
-            Returvärde: -
+            ReturvÃ¤rde: -
             Kommentarer: -
         '''       
         self.level = 0 
@@ -25,7 +26,7 @@ class MainApplicationLayout():
     def rootWindow(self):
         ''' 
             Syfte: Center the main window and gives it nice appearence
-            Returvärde: -
+            ReturvÃ¤rde: -
             Kommentarer: -
         '''   
         self.root.title('RGBY-ColorGame 1.0')
@@ -42,7 +43,7 @@ class MainApplicationLayout():
     def baseFrames(self):
         ''' 
             Syfte: 
-            Returvärde: 
+            ReturvÃ¤rde: 
             Kommentarer: 
         '''                
         self.frame1 = Frame(self.root,bd=2,relief='solid',height=100, width=600, pady=20,padx=200)
@@ -54,7 +55,7 @@ class MainApplicationLayout():
     def baseButtons(self):
         ''' 
             Syfte: 
-            Returvärde: 
+            ReturvÃ¤rde: 
             Kommentarer: 
         '''
         button_R = Button(self.frame2,text='R',bg='red',height=4, width=8,bd=7,relief='raised')
@@ -99,7 +100,7 @@ class MainApplicationLayout():
     def baseLabels(self):
         ''' 
             Syfte: 
-            Returvärde: 
+            ReturvÃ¤rde: 
             Kommentarer: 
         '''
         level_Label = Label(self.frame1,text='Level: 1', font= 'Times 18')
@@ -111,7 +112,7 @@ class MainApplicationLayout():
     def submitScoreFrame(self):
         ''' 
             Syfte: 
-            Returvärde: 
+            ReturvÃ¤rde: 
             Kommentarer: 
         '''
         self.frame3 = Frame(self.root,bd=4,relief='solid',height=180, width=250)
@@ -141,7 +142,7 @@ class MainApplicationLayout():
     def storeHighScore(self):
         ''' 
             Syfte: 
-            Returvärde: 
+            ReturvÃ¤rde: 
             Kommentarer: 
         '''        
         if not self.entry1.get() == '':
@@ -168,7 +169,7 @@ class MainApplicationLayout():
     def meassageBox(self,txtTitle,txtstring):
         """
             Syfte: 
-            Returvärde: 
+            ReturvÃ¤rde: 
             Kommentarer: 
         """
         tkinter.messagebox.showinfo(txtTitle,txtstring)
@@ -177,7 +178,7 @@ class MainApplicationLayout():
     def questionBox(self,txtTitle,txtstring):
         """
             Syfte: 
-            Returvärde: 'yes' or 'no' text string
+            ReturvÃ¤rde: 'yes' or 'no' text string
             Kommentarer: 
         """
         answer = tkinter.messagebox.askquestion(txtTitle,txtstring)

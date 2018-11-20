@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from operator import itemgetter
 import os
 import pickle
@@ -23,7 +24,7 @@ class ScoreSheetClass():
         ''' 
             Syfte: Basically overwrites the old score sheet by 
             creating a new empty with the same name.
-            Returvärde: -
+            ReturvÃ¤rde: -
             Kommentarer: -
         '''
         emptyScoreList = []
@@ -33,7 +34,7 @@ class ScoreSheetClass():
     def scoreWrite(self ,name, score):
         ''' 
             Syfte: Opens the score sheet and rewrites it sorted by higest score (top 10)
-            Returvärde: -
+            ReturvÃ¤rde: -
             Kommentarer: if the score given does not belong to the top 10, it wont show
         '''
         # unpickle
@@ -49,7 +50,7 @@ class ScoreSheetClass():
     def getScoreList(self):
         ''' 
             Syfte: Opens the score sheet and stores it in a variable
-            Returvärde: A list of lists for the top 10 scores.
+            ReturvÃ¤rde: A list of lists for the top 10 scores.
             Kommentarer: 
         '''''
         with open(self.sheetName,'rb') as file:
@@ -59,7 +60,7 @@ class ScoreSheetClass():
     def printScoreSheet(self):
         ''' 
             Syfte: Prints top 10 scores
-            Returvärde: 
+            ReturvÃ¤rde: 
             Kommentarer: 
         '''
         pos = 1

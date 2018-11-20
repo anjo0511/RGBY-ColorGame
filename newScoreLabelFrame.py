@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from tkinter import *
 
 '''
@@ -33,7 +33,7 @@ class ScoreFrame():
     def baseLabels(self):
         ''' 
             Syfte: 
-            Returvärde: 
+            ReturvÃ¤rde: 
             Kommentarer: 
         '''
         self.levelLable = StringVar()
@@ -58,10 +58,10 @@ root = Tk()
 
 x = ScoreFrame(root)
 
-ans = input('Ska jag visa pång tavlan planet?: ')
+ans = input('Ska jag visa pÃ¥ng tavlan planet?: ')
 if ans == 'y':
     x.showFrame(True)
-    ans2 = input('Ska jag ändra på scoreSheet?')
+    ans2 = input('Ska jag Ã¤ndra pÃ¥ scoreSheet?')
     if ans2 == 'y':
         x.chageScoreFrame(30,123)
         

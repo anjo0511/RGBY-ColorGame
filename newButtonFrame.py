@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 from tkinter import *
 import time
@@ -5,7 +6,7 @@ import random
 
 class ButtonFramme:
 
-    def __init__(self, root, level=1):
+    def __init__(self, root, level=5):
 
         self.level = level
         self.root = root
@@ -16,9 +17,13 @@ class ButtonFramme:
                                 height=150,
                                 width=200)
         self.baseButtons()
-    
+        
+        self.userColorSequenceList=[]
+        self.randomList = [] 
+        self.tmpLevel = self.randomLevelSeq()
     def changeLevel(self,level):
         self.level=level
+
 
     def showFrame(self, bol=None):
         if bol is True:
@@ -29,31 +34,43 @@ class ButtonFramme:
     def userClickedButton(self,event):    
         #event.widget.bell(displayof=0)
         self.colorPressed = event.widget.cget('text')
-        self.userColorList([self.colorPressed])
-        print(self.colorPressed)
+        self.userColorList(self.colorPressed)
+        self.liveComparison()
+        #print(self.colorPressed)
+            
+    def liveComparison(self):
+        
+        try:
+            x= self.tmpLevel.pop(0)
+            if x ==self.colorPressed:
+                print('Correct')
+                #print('CPU :',x,'User :',self.colorPressed)
+            else:
+                print('Wrong')
+        except:
+            print(self.tmpLevel)
+            
+            #print('Comparison Ended (Except loop)')
         
     def userColorList(self,colorPressed):
-        self.lvlList=[]
-        pressed = colorPressed
-
-        if len(self.lvlList) < self.level and self.lvlList != []:
-            self.lvlList += pressed
-        #print(self.lvlList)
+           
+        if len(self.userColorSequenceList) < self.level:
+            self.userColorSequenceList.append(self.colorPressed)
+     
+        elif len(self.userColorSequenceList) == self.level:
+            pass
+            print('Seq user pressed: ', self.userColorSequenceList)
+        
         '''
-        userColorSequenceList=[]    
-        if len(userColorSequenceList) < self.level:
-            userColorSequenceList.append(colorPressed)
-            print(userColorSequenceList)
-
-        if len(userColorSequenceList) == self.level:
-            print('Seq user pressed: ', userColorSequenceList)
-        return userColorSequenceList
+        Returnar hela seq
         '''
+        return self.userColorSequenceList
+        
 
     def baseButtons(self):
         ''' 
             Syfte: 
-            Returvärde: 
+            ReturvÃ¤rde: 
             Kommentarer: 
         '''
         self.button_R = Button(self.buttonFrame, text='R', bg='red',
@@ -85,19 +102,19 @@ class ButtonFramme:
         return self.randomColor
 
     def randomLevelSeq(self):     
-        self.randomList = []  
+          
         for i in range(self.level):
             self.randomList.append(self.randomClick())
-        #print('Seq to remember: ', randomList)
+        print('Seq to remember: ', self.randomList)
         return self.randomList
 
-
+    
     def simulation(self):
+               
         
-        randomColorList = self.randomLevelSeq()
-        print(randomColorList)
+        print(self.tmpLevel)
         time.sleep(1)
-        for eachColor in randomColorList:
+        for eachColor in self.tmpLevel:
             print(eachColor)
             
             if eachColor == 'R':
@@ -119,23 +136,29 @@ class ButtonFramme:
             time.sleep(0.5)
 
 
+def test():
+    ans = input('Ska jag visa spel planet?: ')
+    if ans == 'y':
+        x.showFrame(True)    
+        time.sleep(3)
+        print("nu bÃ¶rjar vi om 2 sek!")
+        time.sleep(2)
+        x.simulation()
+        ans2 = input('Ska jag byta level och simulera?: ')
+        if ans2 == 'y':
+            x.changeLevel(5)
+            x.simulation()
+
 
 root = Tk()
 
 x = ButtonFramme(root)
+x.showFrame(True)
+use = input('Hey!: ')
 
-ans = input('Ska jag visa spel planet?: ')
-if ans == 'y':
-    x.showFrame(True)
-    '''
-    time.sleep(3)
-    print("nu börjar vi om 2 sek!")
-    time.sleep(2)
+if (use != ''):
+    print('nu kör vi')
     x.simulation()
-    ans2 = input('Ska jag byta level och simulera?: ')
-    if ans2 == 'y':
-        x.changeLevel(5)
-        x.simulation()
-'''
+
 
 root.mainloop()
