@@ -10,7 +10,7 @@ the external file is not readable but it is easy to use.
 
 class ScoreSheetClass():
 
-    def __init__(self, sheetName):
+    def __init__(self, sheetName='top10scoreSheet'):
 
         self.sheetName = sheetName
 
