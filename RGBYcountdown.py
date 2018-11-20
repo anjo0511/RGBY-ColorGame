@@ -3,13 +3,9 @@ Kommentar: To run the countdown u need 3 images named "3timer.png, 2timer.png, 1
 Which are just images with the numbers 3, 2 and 1 on them (They need to be in same folder).
 """
 from tkinter import *
+"""
+def countdownWindow(self, root):
 
-def countdownWindow(self):
-    """
-        Syfte: Creates a label which will show time until blink starts using images
-        Returvärde: -
-        Parametrar: -
-    """
     self.countlabel = Label()
     self.countlabel.pack()
     self.timer3 = PhotoImage(file="3timer.png")
@@ -18,11 +14,7 @@ def countdownWindow(self):
     self.countdownImageSwap(3)
 
 def countdownImageSwap(self, counter = False):
-    """
-        Syfte: Changes image every second to represent a countdown
-        Returvärde:
-        Parametrar: Counter that controls when the loop shall stop and what image should be displayed.
-    """
+
     if counter:
         self.t = counter
     if self.t == 3:
@@ -40,18 +32,18 @@ def countdownImageSwap(self, counter = False):
         self.t = self.t - 1
         self.countlabel.after(1000, self.countdownImageSwap)        
 
-
-#The code below can be run to be test the countdown module, simply remove the """ at start and end.
 """
-class countdownWindow(Tk):
-    def __init__(self):
-        Tk.__init__(self)
+from newButtonFrame import ButtonFramme
+
+class countdownWindow():
+    def __init__(self, root):
         self.countlabel = Label()
         self.countlabel.pack()
         self.timer3 = PhotoImage(file="3timer.png")
         self.timer2 = PhotoImage(file="2timer.png")
         self.timer1 = PhotoImage(file="1timer.png")
         self.countdownImageSwap(3)
+        self.buttons = ButtonFramme(root)
 
     def countdownImageSwap(self, counter = False):
         if counter:
@@ -66,11 +58,13 @@ class countdownWindow(Tk):
         if self.t == 0:
             counter = False
             self.countlabel.destroy()
-#            blink()
+            self.buttons.showFrame(True)
+            self.buttons.simulation()
         else:
             self.t = self.t - 1
             self.countlabel.after(1000, self.countdownImageSwap)
 
+"""
 root = countdownWindow()
 root.mainloop()
 """
