@@ -53,11 +53,19 @@ class mainWindow():
 		
 		self.score = ScoreFrame(self.root)
 		self.buttons = ButtonFrame(self.root)
-		self.userInput = ScoreInputFrame(self.root)
-		
+		#self.userInput = ScoreInputFrame(self.root)
+		self.setnewLinks()
 		self.score.showFrame(True)
 		self.buttons.showFrame(True)
 	
+	def setnewLinks(self):
+		self.score.setLinktoNavButtons(self.navbuttonsNewlink)
+		self.buttons.setLinktoButtons(self.buttonsNew)
 
+	def navbuttonsNewlink(self,event):
+		print('nooooooooooooooooooooo')
+		
+	def buttonsNew(self,event):
+		print('yeeeeeeeeeeeeeeeeeeeeeeeeeey')
 
 mainWindow()

@@ -50,6 +50,13 @@ class ScoreFrame():
         self.navBotton2.bind('<ButtonRelease-1>', self.navEvent)
         self.navBotton3.bind('<ButtonRelease-1>', self.navEvent)
         
+    def setLinktoNavButtons(self,function):
+        self.function = function
+        self.navBotton.bind('<ButtonRelease-1>', self.function)
+        self.navBotton2.bind('<ButtonRelease-1>', self.function)
+        self.navBotton3.bind('<ButtonRelease-1>', self.function)
+        
+
     def navEvent(self,event):
         ''' 
             Syfte: 

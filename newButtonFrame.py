@@ -124,6 +124,14 @@ class ButtonFrame:
         self.button_B.bind('<ButtonRelease-1>', self.userClickedButton)
         self.button_Y.bind('<ButtonRelease-1>', self.userClickedButton)
 
+    def setLinktoButtons(self,function):
+        self.function = function
+        self.button_R.bind('<ButtonRelease-1>',self.function)
+        self.button_G.bind('<ButtonRelease-1>', self.function)
+        self.button_B.bind('<ButtonRelease-1>', self.function)
+        self.button_Y.bind('<ButtonRelease-1>',self.function)
+       
+
     def randomClick(self):
         ''' 
             Syfte: 
