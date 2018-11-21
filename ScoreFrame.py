@@ -73,8 +73,7 @@ class ScoreFrame():
             
         elif not len(name) > 15:
 
-            level = 'level: '+str(self.level)
-            self.scoreSheet.scoreWrite(name,level)
+            self.scoreSheet.scoreWrite(name,self.level)
                    
             self.entry1.delete(0,END)
 

@@ -20,7 +20,7 @@ class mainWindow:
 		    ReturvÃ¤rde: 
 		    Kommentarer: 
 		''' 
-		self.level=3
+		self.level=30
 		self.lives=10
 
 		self.root = Tk()
@@ -43,8 +43,8 @@ class mainWindow:
 		self.setNewLinksToFrames()
 
 		self.labelFrame.showFrame(True)
-		self.buttonFrame.showFrame(True)
-		self.scoreFrame.showFrame(False)	
+		self.buttonFrame.showFrame(False)
+		self.scoreFrame.showFrame(True)	
 		self.highscoreFrame.showFrame(False)
 	
 	def mainWinLayout(self):

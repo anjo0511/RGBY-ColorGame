@@ -67,13 +67,13 @@ class ScoreSheet():
         eachrow =''
 
         listOfLists = self.getScoreList()
-        print('nb name'+' '*7+'level')
+        #print('nb name'+' '*7+'level')
         for eachname in listOfLists:
             name,level = eachname
                        
             avst = 15 - len(name)
             avst = str(avst*' ')
-            eachrow += str(pos)+'  '+name+avst+level+'\n'
+            eachrow += str(pos)+' '+name+avst+'level: '+str(level)+'\n'
             pos+=1
         
         return eachrow
