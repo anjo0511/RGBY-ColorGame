@@ -93,6 +93,7 @@ class mainWindow:
 			self.tmp = self.internalCore.curerntLevelList()
 			countdownWindow(self.root, self.buttonFrame, self.tmp)
 			print('Starting Countdown')
+#self.nextLevel och self.restartLevel ska kallas när spelaren klickar klart / klickar fel, de är bara här just nu för att testa.
 			self.nextLevel()
 #			self.restartLevel()
 
