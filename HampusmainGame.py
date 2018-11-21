@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from tkinter import *
-from tkinter import messagebox
 import time
+
 from HighscoreFrame import HighScoreFrame
 from InternalCore import InternalCore
 from LabelFrame_S import LabelFrame_S
@@ -22,7 +22,7 @@ class mainWindow:
 		    ReturvÃ¤rde: 
 		    Kommentarer: 
 		''' 
-		self.level=1
+		self.level=2
 		self.lives=3
 
 		self.root = Tk()
@@ -44,11 +44,7 @@ class mainWindow:
 		self.scoreFrame = ScoreFrame(self.root,self.level)
 		self.scoresheet = ScoreSheet()
 		self.setNewLinksToFrames()
-				
-		'''
-		self.countDown = CountDown()
-		'''
-		
+
 		self.labelFrame.showFrame(True)
 		self.buttonFrame.showFrame(True)
 		self.scoreFrame.showFrame(False)	
@@ -90,27 +86,31 @@ class mainWindow:
 		''' 		
 		whichBotton = event.widget.cget('text')
 
-		if whichBotton== 'Start' and self.lives != 0:
-	
-			self.highscoreFrame.showFrame(False)
+		if whichBotton== 'Start':
+			'''
+			countdown behovs
+			'''		
 			self.tmp = self.internalCore.curerntLevelList()
 			self.buttonFrame.showFrame(False)
 			countdownWindow(self.root, self.buttonFrame, self.tmp)
 			self.buttonFrame.showFrame(True)
-			print('Start Button')			
+			print('Starting Countdown')
+		#self.nextLevel och self.restartLevel ska kallas när spelaren 
+		# klickar klart / klickar fel, de är bara här just nu för att testa.
+			self.nextLevel()
+		#			self.restartLevel()
 
 		elif whichBotton == 'Highscores':
 			tmp =  self.scoresheet.getString()
 			self.highscoreFrame.changeHighscoreFrame(tmp)
 			self.buttonFrame.showFrame(False)
 			self.highscoreFrame.showFrame(True)
-			print('Highscores Button')		            
+			print('Showing Highscores')		            
 				
 		elif whichBotton == 'Reset':						
 			self.reset()
-			messagebox.showinfo('Restart the Game','Now you are able to give it another try, good luck')
-			print('Reset Button')
-		elif whichBotton =='Back' and self.lives != 0:
+
+		elif whichBotton =='Back':
 			self.buttonFrame.showFrame(True)
 			self.highscoreFrame.showFrame(False)
 
@@ -142,11 +142,9 @@ class mainWindow:
 		whichColour = event.widget.cget('text')
 
 		if whichColour == 'R':
-			self.nextLevel()
 			print('red')
 		elif whichColour == 'G':
 			print('green')
-			self.restartLevel()
 		elif whichColour == 'B':
 			print('blue')
 		elif whichColour == 'Y':
@@ -170,27 +168,25 @@ class mainWindow:
 			print(self.tmpLevel)
 			
 			#print('Comparison Ended (Except loop)')
-		
 	
 	def nextLevel(self):
-		''' 
-			Syfte: 
-			ReturvÃ¤rde: 
-			Kommentarer: 
-		'''		
+		
 		grats = "Congratulations, you made it!!\nPress the button to continue to the next level."
-
-		x = messagebox.showinfo("Winner", grats)
-		if x == 'ok':			
-			self.nextLevelCommands()
-
+		
+		self.nxtlvlpopup = Tk()
+		self.nxtlvlpopup.wm_title("Congratulations!")
+		
+		nxtlvlLabel = Label(self.nxtlvlpopup, text=grats,padx=15 ,pady=15)
+		nxtlvlLabel.pack()
+		nxtlvlButton = Button(self.nxtlvlpopup, text="Next level",command = self.nextLevelCommands)
+		nxtlvlButton.pack()
+		spacer = Label(self.nxtlvlpopup,pady=5)
+		spacer.pack()
+		self.nxtlvlpopup.mainloop()
+	
 	def nextLevelCommands(self):
-		''' 
-			Syfte: 
-			ReturvÃ¤rde: 
-			Kommentarer: 
-		'''
 		self.buttonFrame.showFrame(False)
+		self.nxtlvlpopup.destroy()
 		self.level = self.level + 1
 		self.labelFrame.chageLabelFrame(self.level, self.lives)
 		self.internalCore = InternalCore(self.level)
@@ -199,38 +195,21 @@ class mainWindow:
 		self.buttonFrame.showFrame(True)
 
 	def restartLevel(self):
-		''' 
-			Syfte: 
-			ReturvÃ¤rde: 
-			Kommentarer: 
-		'''		
-		if self.lives == 0:
-			sorry2 = 'You dont have eonugh lives, reset the game'
-			x = messagebox.showwarning("Loser", sorry2)
-			if x == 'ok':
-				self.buttonFrame.showFrame(False)				
-			
-		else:			
-			sorry = "You failed, you have one life less. Press the button below to continue"
-			x = messagebox.showinfo("Loser", sorry)
-			if x == 'ok':
-				self.restartLevelCommands()
-			
+		sorry = "You failed the level! You lost a life but can still try again, press the button below to restart the level"
+		self.resetlvlpopup = Tk()
+		self.resetlvlpopup.wm_title("FAIL!")
+		resetlvlLabel = Label(self.resetlvlpopup, text=sorry,)
+		resetlvlLabel.pack()
+		resetlvlButton = Button(self.resetlvlpopup, text="Restart level", command = self.restartLevelCommands)
+		resetlvlButton.pack()
+		self.resetlvlpopup.mainloop()
+	
 	def restartLevelCommands(self):
-		''' 
-			Syfte: 
-			ReturvÃ¤rde: 
-			Kommentarer: 
-		'''
-		self.buttonFrame.showFrame(False)		
+		self.resetlvlpopup.destroy()
 		self.lives = self.lives - 1
 		self.labelFrame.chageLabelFrame(self.level, self.lives)
 		self.tmp = self.internalCore.curerntLevelList()
 		countdownWindow(self.root, self.buttonFrame, self.tmp)
-		self.buttonFrame.showFrame(True)
-
-
-
 
 
 mainWindow()

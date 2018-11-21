@@ -64,6 +64,19 @@ class ButtonFrame:
         elif bol is False:
             self.buttonFrame.pack_forget()
 
+    def disbleButtons(self,bol=None):
+        if bol is True:
+            self.button_R.config(state=DISABLED)
+            self.button_G.config(state=DISABLED)
+            self.button_B.config(state=DISABLED)
+            self.button_Y.config(state=DISABLED)
+
+        elif bol is False:
+            self.button_R.config(state=ACTIVE)
+            self.button_G.config(state=ACTIVE)
+            self.button_B.config(state=ACTIVE)
+            self.button_Y.config(state=ACTIVE)
+
 
     def simulation(self,tmpLevelSeq):
         ''' 
@@ -71,7 +84,7 @@ class ButtonFrame:
             ReturvÃ¤rde: 
             Kommentarer: 
         '''                       
-        print(tmpLevelSeq)
+        print(tmpLevelSeq)        
         time.sleep(1)
         for eachColor in tmpLevelSeq:
             print(eachColor)
