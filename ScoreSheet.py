@@ -57,7 +57,7 @@ class ScoreSheet():
             self.scoreSheetList = pickle.load(file)
         return self.scoreSheetList    
         
-    def printScoreSheet(self):
+    def getString(self):
         ''' 
             Syfte: Prints top 10 scores
             ReturvÃ¤rde: 
@@ -75,6 +75,7 @@ class ScoreSheet():
             avst = str(avst*' ')
             eachrow += str(pos)+'  '+name+avst+level+'\n'
             pos+=1
-
-        print(eachrow)
+        
+        return eachrow
+        
 

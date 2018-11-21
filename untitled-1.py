@@ -1,31 +1,52 @@
 # -*- coding: utf-8 -*-
 
 from tkinter import *
-import time , random
 
+from HighscoreFrame import HighScoreFrame
+from InternalCore import InternalCore
 from LabelFrame_S import LabelFrame_S
 from ButtonFrame import ButtonFrame
 from ScoreFrame import ScoreFrame
-
-
-
+from ScoreSheet import ScoreSheet
+'''
+restart() method needs to call on cuntdown and later on 
+sumulation again
+'''
 
 class mainWindow:
 	def __init__(self):
 		''' 
 		    Syfte: 
-		    ReturvÃ¤rde: -
-		    Kommentarer: -
+		    ReturvÃ¤rde: 
+		    Kommentarer: 
 		''' 
-		self.level=50
-		self.lives=100
+		self.level=3
+		self.lives=10
 
 		self.root = Tk()
-
-		self.order()		
-
+		self.startOrder()	
 		self.root.mainloop()
-		
+
+	def startOrder(self):
+		''' 
+		    Syfte: 
+		    ReturvÃ¤rde: 
+		    Kommentarer: 
+		'''		
+		self.mainWinLayout()
+		self.internalCore = InternalCore(self.level)
+		self.highscoreFrame = HighScoreFrame(self.root)
+		self.labelFrame = LabelFrame_S(self.root,self.level,self.lives)
+		self.buttonFrame = ButtonFrame(self.root)
+		self.scoreFrame = ScoreFrame(self.root,self.level)
+		self.scoresheet = ScoreSheet()
+		self.setNewLinksToFrames()
+
+		self.labelFrame.showFrame(True)
+		self.buttonFrame.showFrame(True)
+		self.scoreFrame.showFrame(False)	
+		self.highscoreFrame.showFrame(False)
+	
 	def mainWinLayout(self):
 		''' 
 		    Syfte: Center the main window and gives it nice appearence
@@ -43,46 +64,103 @@ class mainWindow:
 		self.root.geometry("%dx%d+%d+%d" %(width_of_window,height_of_window,x_coordinate,y_coordinate))
 		
 		
-	def order(self):
+	def setNewLinksToFrames(self):
 		''' 
 		    Syfte: 
 		    ReturvÃ¤rde: 
 		    Kommentarer: 
-		'''		
-		self.mainWinLayout()
+		''' 		
+		self.labelFrame.setLinktoNavButtons(self.navButtons)
+		self.buttonFrame.setLinktoButtons(self.colourButtons)
+
+
+	def navButtons(self,event):
+		''' 
+		    Syfte: 
+		    ReturvÃ¤rde: -
+		    Kommentarer: -
+		''' 		
+		whichBotton = event.widget.cget('text')
+
+		if whichBotton== 'Start':
+			'''
+			countdown behovs
+			'''			
+			tmp = self.internalCore.curerntLevelList()
+			self.buttonFrame.simulation(tmp)
+			print('Start')
+
+		elif whichBotton == 'Highscores':
+			tmp =  self.scoresheet.getString()
+			self.highscoreFrame.changeHighscoreFrame(tmp)
+			self.buttonFrame.showFrame(False)
+			self.highscoreFrame.showFrame(True)
+			print('Highscores are: ')		            
+				
+		elif whichBotton == 'Reset':						
+			self.reset()
+
+		elif whichBotton =='Back':
+			self.buttonFrame.showFrame(True)
+			self.highscoreFrame.showFrame(False)
+
+
+	def reset(self):
+		''' 
+			Syfte: Does not start simulaton only restart internals
+			ReturvÃ¤rde: 
+			Kommentarer: 
+		'''
+		self.level = 1
+		self.lives = 3
+		self.labelFrame.chageLabelFrame(self.level,self.lives)
+		self.internalCore.resetGame(self.level)
+		self.internalCore.levelSeqMaker()
 		
-		self.labelFrame = LabelFrame_S(self.root,self.level,self.lives)
-		self.buttonFrame = ButtonFrame(self.root,self.level)
-		self.scoreFrame = ScoreFrame(self.root,self.level)
-
-		self.setnewLinks()
-		self.labelFrame.showFrame(False)
-		self.buttonFrame.showFrame(False)
-		self.scoreFrame.showFrame(True)
-	
-	def setnewLinks(self):
-		self.labelFrame.setLinktoNavButtons(self.navbuttonsNewlink)
-		self.buttonFrame.setLinktoButtons(self.buttonsNew)
-
-	def navbuttonsNewlink(self,event):
-		print('nooooooooooooooooooooo')
-		self.whichBotton = event.widget.cget('text') 
-		print(self.whichBotton)
-		if self.whichBotton== 'Start':
-			self.buttonFrame.simulation()
-
-		if self.whichBotton == 'Highscores':
-			#self.scoreFrame.showFrame(True)            
-			self.buttonFrame.showFrame(False)
-			self.scoreFrame.showFrame(True) 
-
-		elif self.whichBotton == 'Restart':
-			self.buttonFrame.showFrame(False)
-			self.labelFrame.chageScoreFrame(self.lives-1,20)
-
-	def buttonsNew(self,event):
-		print('yeeeeeeeeeeeeeeeeeeeeeeeeeey')
+		print('\nReseting...')
+		print('new seq: ',self.internalCore.curerntLevelList())
+		print('Press start when you are ready!')
 
 
+	def colourButtons(self,event):
+		''' 
+		    Syfte: 
+		    ReturvÃ¤rde: -
+		    Kommentarer: -
+		''' 		
+		#event.widget.bell(displayof=0)
+		whichColour = event.widget.cget('text')
+
+		if whichColour == 'R':
+			print('red')
+		elif whichColour == 'G':
+			print('green')
+		elif whichColour == 'B':
+			print('blue')
+		elif whichColour == 'Y':
+			print('yellow')
+
+
+	def liveComparison(self):
+		''' 
+			Syfte: 
+			ReturvÃ¤rde: 
+			Kommentarer: 
+		'''        
+		try:
+			x= self.tmpLevel.pop(0)
+			if x ==self.colorPressed:
+				print('Correct')
+				#print('CPU :',x,'User :',self.colorPressed)
+			else:
+				print('Wrong')
+		except:
+			print(self.tmpLevel)
+			
+			#print('Comparison Ended (Except loop)')
+		
+
+	def theGame(self):
+		pass
 
 mainWindow()

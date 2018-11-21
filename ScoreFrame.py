@@ -101,5 +101,3 @@ class ScoreFrame():
             self.inputFrame.pack_forget()  
 
 
-
-

@@ -6,96 +6,18 @@ import time, random
 
 class ButtonFrame:
 
-    def __init__(self, root, level):
+    def __init__(self, root):
         ''' 
             Syfte: 
             ReturvÃ¤rde: 
             Kommentarer: 
         '''
-        self.level = level
         self.root = root
-        self.buttonFrame = Frame(
-                                self.root,
-                                bd=2,
-                                relief='solid',
-                                height=150,
-                                width=200)
+
+        self.buttonFrame = Frame(self.root,bd=2,relief='solid',height=150,width=200)
+
         self.colourButtonLayout()
-        
-        self.userColorSequenceList=[]
-        self.randomList = [] 
-        self.tmpLevel = self.randomLevelSeq()
-    
-    
-    def changeLevel(self,level):
-        ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
-        '''
-        self.level=level
 
-
-    def showFrame(self, bol=None):
-        ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
-        '''
-        if bol is True:
-            self.buttonFrame.pack()
-        elif bol is False:
-            self.buttonFrame.pack_forget()
-
-
-    def userClickedButton(self,event):    
-        ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
-        '''
-        #event.widget.bell(displayof=0)
-        self.colorPressed = event.widget.cget('text')
-        self.userColorList(self.colorPressed)
-        self.liveComparison()
-        #print(self.colorPressed)
-            
-    def liveComparison(self):
-        ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
-        '''        
-        try:
-            x= self.tmpLevel.pop(0)
-            if x ==self.colorPressed:
-                print('Correct')
-                #print('CPU :',x,'User :',self.colorPressed)
-            else:
-                print('Wrong')
-        except:
-            print(self.tmpLevel)
-            
-            #print('Comparison Ended (Except loop)')
-        
-    def userColorList(self,colorPressed):
-        ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
-        '''           
-        if len(self.userColorSequenceList) < self.level:
-            self.userColorSequenceList.append(self.colorPressed)
-     
-        elif len(self.userColorSequenceList) == self.level:
-            pass
-            print('Seq user pressed: ', self.userColorSequenceList)
-        
-        '''
-        Returnar hela seq
-        '''
-        return self.userColorSequenceList
-        
 
     def colourButtonLayout(self):
         ''' 
@@ -122,10 +44,6 @@ class ButtonFrame:
         self.button_B['activebackground'] = self.button_B.cget('background')
         self.button_Y['activebackground'] = self.button_Y.cget('background')
 
-        self.button_R.bind('<ButtonRelease-1>', self.userClickedButton)
-        self.button_G.bind('<ButtonRelease-1>', self.userClickedButton)
-        self.button_B.bind('<ButtonRelease-1>', self.userClickedButton)
-        self.button_Y.bind('<ButtonRelease-1>', self.userClickedButton)
 
     def setLinktoButtons(self,function):
         self.function = function
@@ -135,37 +53,27 @@ class ButtonFrame:
         self.button_Y.bind('<ButtonRelease-1>',self.function)
        
 
-    def randomClick(self):
+    def showFrame(self, bol=None):
         ''' 
             Syfte: 
             ReturvÃ¤rde: 
             Kommentarer: 
         '''
-        self.randomColor = random.choice('RYGB')
-        return self.randomColor
+        if bol is True:
+            self.buttonFrame.pack()
+        elif bol is False:
+            self.buttonFrame.pack_forget()
 
-    def randomLevelSeq(self):     
+
+    def simulation(self,tmpLevelSeq):
         ''' 
             Syfte: 
             ReturvÃ¤rde: 
             Kommentarer: 
-        '''          
-        for i in range(self.level):
-            self.randomList.append(self.randomClick())
-        print('Seq to remember: ', self.randomList)
-        return self.randomList
-
-    
-    def simulation(self):
-        ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
-        '''               
-        
-        print(self.tmpLevel)
+        '''                       
+        print(tmpLevelSeq)
         time.sleep(1)
-        for eachColor in self.tmpLevel:
+        for eachColor in tmpLevelSeq:
             print(eachColor)
             
             if eachColor == 'R':
@@ -185,5 +93,3 @@ class ButtonFrame:
                 self.button_Y.flash()
                 self.button_Y.after(2000, lambda:self.button_Y.configure(activebackground ='yellow'))
             time.sleep(0.5)
-
-

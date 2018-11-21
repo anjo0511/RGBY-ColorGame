@@ -33,12 +33,14 @@ class LabelFrame_S:
             Kommentarer: 
         '''        
         self.navBotton = Button(self.scoreFrame,text='Start', padx=5,pady=5,activebackground='blue')
-        self.navBotton2 = Button(self.scoreFrame,text='Restart', padx=5,pady=5,activebackground='blue')
+        self.navBotton2 = Button(self.scoreFrame,text='Reset', padx=5,pady=5,activebackground='blue')
         self.navBotton3 = Button(self.scoreFrame,text='Highscores', padx=5,pady=5,activebackground='blue')
+        self.navBotton4 = Button(self.scoreFrame,text='Back', padx=5,pady=5,activebackground='blue')
                 
-        self.navBotton.pack(side=LEFT)
+        self.navBotton.pack()
         self.navBotton2.pack(side=LEFT)
         self.navBotton3.pack(side=LEFT)
+        self.navBotton4.pack(side=LEFT)
 
 
     def setLinktoNavButtons(self,function):
@@ -51,6 +53,7 @@ class LabelFrame_S:
         self.navBotton.bind('<ButtonRelease-1>', self.function)
         self.navBotton2.bind('<ButtonRelease-1>', self.function)
         self.navBotton3.bind('<ButtonRelease-1>', self.function)
+        self.navBotton4.bind('<ButtonRelease-1>', self.function)
                 
 
     def topLabels(self):
@@ -75,8 +78,8 @@ class LabelFrame_S:
             ReturvÃ¤rde: 
             Kommentarer: 
         '''
-        self.levelLable.set('Level '+str(level))
-        self.livesLable.set('Lives '+str(lives))
+        self.levelLable.set('Level: '+str(level))
+        self.livesLable.set('Lives: '+str(lives))
 
 
     def showFrame(self, bol=None):
