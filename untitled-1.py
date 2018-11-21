@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
 from tkinter import *
-
+import time
 from HighscoreFrame import HighScoreFrame
 from InternalCore import InternalCore
 from LabelFrame_S import LabelFrame_S
 from ButtonFrame import ButtonFrame
 from ScoreFrame import ScoreFrame
 from ScoreSheet import ScoreSheet
+from CountDown import CountDown
 '''
 restart() method needs to call on cuntdown and later on 
 sumulation again
@@ -42,7 +43,11 @@ class mainWindow:
 		self.scoreFrame = ScoreFrame(self.root,self.level)
 		self.scoresheet = ScoreSheet()
 		self.setNewLinksToFrames()
-
+				
+		'''
+		self.countDown = CountDown()
+		'''
+		
 		self.labelFrame.showFrame(True)
 		self.buttonFrame.showFrame(True)
 		self.scoreFrame.showFrame(False)	
@@ -86,11 +91,15 @@ class mainWindow:
 
 		if whichBotton== 'Start':
 			'''
-			countdown behovs
+			countdown behovs här
 			'''		
 			tmp = self.internalCore.curerntLevelList()
+			'''
+			This needs to work someday
+			self.countDown.startTimer()			
+			'''
 			self.buttonFrame.simulation(tmp)
-			print('Starting Countdown')
+			print('Starting Lavel')
 
 		elif whichBotton == 'Highscores':
 			tmp =  self.scoresheet.getString()
