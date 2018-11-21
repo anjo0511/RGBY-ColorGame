@@ -20,14 +20,15 @@ class mainWindow:
 		    ReturvÃ¤rde: 
 		    Kommentarer: 
 		''' 
-		self.level=30
-		self.lives=10
+		self.level=1
+		self.lives=3
 
 		self.root = Tk()
-		self.startOrder()	
+		self.startingOrder()	
 		self.root.mainloop()
 
-	def startOrder(self):
+
+	def startingOrder(self):
 		''' 
 		    Syfte: 
 		    ReturvÃ¤rde: 
@@ -43,10 +44,11 @@ class mainWindow:
 		self.setNewLinksToFrames()
 
 		self.labelFrame.showFrame(True)
-		self.buttonFrame.showFrame(False)
-		self.scoreFrame.showFrame(True)	
+		self.buttonFrame.showFrame(True)
+		self.scoreFrame.showFrame(False)	
 		self.highscoreFrame.showFrame(False)
 	
+
 	def mainWinLayout(self):
 		''' 
 		    Syfte: Center the main window and gives it nice appearence
@@ -85,17 +87,17 @@ class mainWindow:
 		if whichBotton== 'Start':
 			'''
 			countdown behovs
-			'''			
+			'''		
 			tmp = self.internalCore.curerntLevelList()
 			self.buttonFrame.simulation(tmp)
-			print('Start')
+			print('Starting Countdown')
 
 		elif whichBotton == 'Highscores':
 			tmp =  self.scoresheet.getString()
 			self.highscoreFrame.changeHighscoreFrame(tmp)
 			self.buttonFrame.showFrame(False)
 			self.highscoreFrame.showFrame(True)
-			print('Highscores are: ')		            
+			print('Showing Highscores')		            
 				
 		elif whichBotton == 'Reset':						
 			self.reset()
