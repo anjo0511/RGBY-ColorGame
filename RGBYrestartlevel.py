@@ -13,4 +13,6 @@ def restartLevel(self):
 def restartLevelCommands(self):
     self.resetlvlpopup.destroy()
     self.lives = self.lives - 1
-    self.countdownWindow()
+    self.labelFrame.chageLabelFrame(self.level, self.lives)
+    self.tmp = self.internalCore.curerntLevelList()
+    countdownWindow(self.root, self.buttonFrame, self.tmp)
