@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from tkinter import *
-import time
-import random
+import time, random
+
 
 class ButtonFrame:
 
-    def __init__(self, root, level=5):
+    def __init__(self, root, level):
         ''' 
             Syfte: 
             ReturvÃ¤rde: 
@@ -20,11 +20,13 @@ class ButtonFrame:
                                 relief='solid',
                                 height=150,
                                 width=200)
-        self.baseButtons()
+        self.colourButtonLayout()
         
         self.userColorSequenceList=[]
         self.randomList = [] 
         self.tmpLevel = self.randomLevelSeq()
+    
+    
     def changeLevel(self,level):
         ''' 
             Syfte: 
@@ -44,6 +46,7 @@ class ButtonFrame:
             self.buttonFrame.pack()
         elif bol is False:
             self.buttonFrame.pack_forget()
+
 
     def userClickedButton(self,event):    
         ''' 
@@ -94,7 +97,7 @@ class ButtonFrame:
         return self.userColorSequenceList
         
 
-    def baseButtons(self):
+    def colourButtonLayout(self):
         ''' 
             Syfte: 
             ReturvÃ¤rde: 

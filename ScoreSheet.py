@@ -9,11 +9,11 @@ external file to later be able to restore the variable in the current session.
 the external file is not readable but it is easy to use.
 '''
 
-class ScoreSheetClass():
+class ScoreSheet():
 
-    def __init__(self, sheetName='top10scoreSheet'):
+    def __init__(self):
 
-        self.sheetName = sheetName
+        self.sheetName = 'top10scoreSheet'
 
         if not os.path.isfile(self.sheetName): 
             newSheet = []  
@@ -64,9 +64,17 @@ class ScoreSheetClass():
             Kommentarer: 
         '''
         pos = 1
+        eachrow =''
+
         listOfLists = self.getScoreList()
-        print('  name : level')
-        for miniList in listOfLists:
-            name, score = [miniList[0],miniList[1]]
-            print(pos,name,':',score)
-            pos +=1
+        print('nb name'+' '*7+'level')
+        for eachname in listOfLists:
+            name,level = eachname
+                       
+            avst = 15 - len(name)
+            avst = str(avst*' ')
+            eachrow += str(pos)+'  '+name+avst+level+'\n'
+            pos+=1
+
+        print(eachrow)
+

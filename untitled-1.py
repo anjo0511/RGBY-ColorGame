@@ -1,28 +1,28 @@
 # -*- coding: utf-8 -*-
 
 from tkinter import *
-import time
-import random
-import tkinter.messagebox
-from scoreSheetClass import ScoreSheetClass
+import time , random
 
-from newButtonFrame import ButtonFrame
-from newLabelFrame import ScoreFrame
-from newSoreInputFrame import ScoreInputFrame
+from LabelFrame_S import LabelFrame_S
+from ButtonFrame import ButtonFrame
+from ScoreFrame import ScoreFrame
 
 
-class mainWindow():
+
+
+class mainWindow:
 	def __init__(self):
 		''' 
 		    Syfte: 
 		    ReturvÃ¤rde: -
 		    Kommentarer: -
 		''' 
-		self.root = Tk()
-		
+		self.level=50
+		self.lives=100
 
-		self.order()
-		
+		self.root = Tk()
+
+		self.order()		
 
 		self.root.mainloop()
 		
@@ -51,21 +51,38 @@ class mainWindow():
 		'''		
 		self.mainWinLayout()
 		
-		self.score = ScoreFrame(self.root)
-		self.buttons = ButtonFrame(self.root)
-		#self.userInput = ScoreInputFrame(self.root)
+		self.labelFrame = LabelFrame_S(self.root,self.level,self.lives)
+		self.buttonFrame = ButtonFrame(self.root,self.level)
+		self.scoreFrame = ScoreFrame(self.root,self.level)
+
 		self.setnewLinks()
-		self.score.showFrame(True)
-		self.buttons.showFrame(True)
+		self.labelFrame.showFrame(False)
+		self.buttonFrame.showFrame(False)
+		self.scoreFrame.showFrame(True)
 	
 	def setnewLinks(self):
-		self.score.setLinktoNavButtons(self.navbuttonsNewlink)
-		self.buttons.setLinktoButtons(self.buttonsNew)
+		self.labelFrame.setLinktoNavButtons(self.navbuttonsNewlink)
+		self.buttonFrame.setLinktoButtons(self.buttonsNew)
 
 	def navbuttonsNewlink(self,event):
 		print('nooooooooooooooooooooo')
-		
+		self.whichBotton = event.widget.cget('text') 
+		print(self.whichBotton)
+		if self.whichBotton== 'Start':
+			self.buttonFrame.simulation()
+
+		if self.whichBotton == 'Highscores':
+			#self.scoreFrame.showFrame(True)            
+			self.buttonFrame.showFrame(False)
+			self.scoreFrame.showFrame(True) 
+
+		elif self.whichBotton == 'Restart':
+			self.buttonFrame.showFrame(False)
+			self.labelFrame.chageScoreFrame(self.lives-1,20)
+
 	def buttonsNew(self,event):
 		print('yeeeeeeeeeeeeeeeeeeeeeeeeeey')
+
+
 
 mainWindow()
