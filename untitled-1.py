@@ -105,10 +105,8 @@ class mainWindow:
             print('Highscores Button')
 
         elif whichBotton == 'Reset':
-            self.reset()
-            messagebox.showinfo(
-                'Restart the Game', 'Now you are able to give it another try, good luck')
             print('Reset Button')
+            self.resetButton()
 
         elif whichBotton == 'Back' and self.lives != 0:
             self.buttonFrame.showFrame(True)
@@ -116,7 +114,7 @@ class mainWindow:
             print('Back Button')
 
 
-    def reset(self):
+    def resetButton(self):
         ''' 
                 Syfte: Does not start simulaton only restart internals
                 ReturvÃ¤rde: 
@@ -126,19 +124,31 @@ class mainWindow:
         self.lives = 3
         self.tmpLevelSeq = self.levelSeqMaker(self.tmpLevelSeq)
         self.labelFrame.chageLabelFrame(self.level, self.lives)
-        print('Reseting')
+        
+        messagebox.showinfo('Restar Done',
+        'Now you can give it another try, press start whenever you are ready, good luck :)')
+        print('........Reseting Done........\n')
 
 
     def colourButtons(self, event):
         ''' 
-            Syfte: 
+            Syfte: Sends the colour pressed to be compared
             ReturvÃ¤rde: -
-            Kommentarer: -
+            Kommentarer: Prints which colour to display on terminal 
+            for easy use.
         '''
         #event.widget.bell(displayof=0)
         whichColour = event.widget.cget('text')       
         self.liveComparison(whichColour)
-
+		
+        if whichColour == 'R':
+            print('---> user Red')
+        elif whichColour == 'G':
+            print('---> user Green')
+        elif whichColour == 'B':
+            print('---> user Blue')
+        elif whichColour == 'Y':
+            print('---> user Yellow')
 		
     def liveComparison(self,colour):
         
@@ -162,10 +172,10 @@ class mainWindow:
             ReturvÃ¤rde: 
             Kommentarer: 
         '''
-        grats = "Congratulations, you made it!!\nPress the button to continue to the next level."
+        var_0 = "Congratulations, you made it!!\nClick to continue to the next level."
 
-        x = messagebox.showinfo("Winner", grats)
-        if x == 'ok':
+        tmpMsg0 = messagebox.showinfo("Winner", var_0)
+        if tmpMsg0 == 'ok':
             self.nextLevelCommands()
 
     def nextLevelCommands(self):
@@ -188,15 +198,15 @@ class mainWindow:
                 Kommentarer: 
         '''
         if self.lives == 0:
-            sorry2 = 'You dont have eonugh lives, reset the game'
-            x = messagebox.showwarning("Loser", sorry2)
-            if x == 'ok':
+            var_1 = 'You dont have any lives left, reset the game!'
+            tmpMsg1 = messagebox.showwarning("Loser", var_1)
+            if tmpMsg1 == 'ok':
                 self.buttonFrame.showFrame(False)
 
         else:
-            sorry = "You failed, you have one life less. Press the button below to continue"
-            x = messagebox.showinfo("Loser", sorry)
-            if x == 'ok':
+            var_2 = "Oops you got it wrong, click to restart level"
+            tmpMsg2 = messagebox.showinfo("You lost a live", var_2)
+            if tmpMsg2 == 'ok':
                 self.restartLevelCommands()
 
     def restartLevelCommands(self):
@@ -213,7 +223,8 @@ class mainWindow:
 
     def levelSeqMaker(self,level):
         ''' 
-            Syfte: 
+            Syfte: Empties the current level list and randomizes 
+                a new one depening on the level.
             ReturvÃ¤rde: 
             Kommentarer: 
         ''' 

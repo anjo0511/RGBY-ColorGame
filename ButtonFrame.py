@@ -83,10 +83,10 @@ class ButtonFrame:
             ReturvÃ¤rde: 
             Kommentarer: 
         '''                       
-        print(tmpLevelSeq)        
+        print('Current level seq --->',tmpLevelSeq)        
         time.sleep(1)
         for eachColor in tmpLevelSeq:
-            print(eachColor)
+            print('---> Computer',eachColor)
             
             if eachColor == 'R':
                 self.button_R['activebackground']='white'
