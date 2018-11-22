@@ -131,43 +131,27 @@ class mainWindow:
             Kommentarer: -
         '''
         #event.widget.bell(displayof=0)
-        whichColour = event.widget.cget('text')
-		'''
-			Thia is better I will change soon
-			self.liveComparison(whichColour)
-		'''
-        if whichColour == 'R':
-            self.liveComparison(whichColour)
-            print('Red Button')
-        elif whichColour == 'G':
-            self.liveComparison(whichColour)
-            print('Green Button')
+        whichColour = event.widget.cget('text')       
+        self.liveComparison(whichColour)
 
-        elif whichColour == 'B':
-            self.liveComparison(whichColour)
-            print('Blue Button')
-
-        elif whichColour == 'Y':
-            self.liveComparison(whichColour)
-            print('Yellow Button')
 		
-	def liveComparison(self,colour):
-		tmp = self.internalCore.curerntLevelList()
-		if len(tmp) != 0:
-			cpUcolor = tmp.pop(0)
-			if cpUcolor != colour:
-				self.restartLevel()
-				print('Restarting, Wrong Color')
-		else:
-			self.nextLevel()
-			print('Next level')
+    def liveComparison(self,colour):
+        
+        if len(self.tmp) != 0:
+            cpUcolor = self.tmp.pop(0)
+        if cpUcolor != colour:
+            self.restartLevel()
+            print('Restarting, Wrong Color')
+        else:
+            self.nextLevel()
+            print('Next level')
 
 
     def nextLevel(self):
         ''' 
-                Syfte: 
-                ReturvÃ¤rde: 
-                Kommentarer: 
+            Syfte: 
+            ReturvÃ¤rde: 
+            Kommentarer: 
         '''
         grats = "Congratulations, you made it!!\nPress the button to continue to the next level."
 
