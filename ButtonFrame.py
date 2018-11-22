@@ -2,7 +2,6 @@
 
 from tkinter import *
 import time, random
-from CountDown import CountDown
 
 class ButtonFrame:
 

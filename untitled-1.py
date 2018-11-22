@@ -2,10 +2,9 @@
 
 from tkinter import *
 from tkinter import messagebox
-import time
+import time, random
 
 from HighscoreFrame import HighScoreFrame
-from InternalCore import InternalCore
 from LabelFrame_S import LabelFrame_S
 from ButtonFrame import ButtonFrame
 from ScoreFrame import ScoreFrame
@@ -13,6 +12,11 @@ from ScoreSheet import ScoreSheet
 
 from HampusCountdown import countdownWindow
 
+'''
+dont forget to add the scorewindow when losing
+Everything works there is just something wrong with 
+reset and restart 
+'''
 
 class mainWindow:
     def __init__(self):
@@ -23,6 +27,8 @@ class mainWindow:
         '''
         self.level = 1
         self.lives = 3
+        self.tmpLevelSeq=[]
+        self.tmpLevelSeq = self.levelSeqMaker(self.tmpLevelSeq)
 
         self.root = Tk()
         self.startingOrder()
@@ -35,7 +41,6 @@ class mainWindow:
             Kommentarer: 
         '''
         self.mainWinLayout()
-        self.internalCore = InternalCore(self.level)
         self.highscoreFrame = HighScoreFrame(self.root)
         self.labelFrame = LabelFrame_S(self.root, self.level, self.lives)
         self.buttonFrame = ButtonFrame(self.root)
@@ -47,6 +52,7 @@ class mainWindow:
         self.buttonFrame.showFrame(True)
         self.scoreFrame.showFrame(False)
         self.highscoreFrame.showFrame(False)
+
 
     def mainWinLayout(self):
         ''' 
@@ -65,6 +71,7 @@ class mainWindow:
         self.root.geometry("%dx%d+%d+%d" % (width_of_window,
                                             height_of_window, x_coordinate, y_coordinate))
 
+
     def setNewLinksToFrames(self):
         ''' 
             Syfte: 
@@ -73,6 +80,7 @@ class mainWindow:
         '''
         self.labelFrame.setLinktoNavButtons(self.navButtons)
         self.buttonFrame.setLinktoButtons(self.colourButtons)
+
 
     def navButtons(self, event):
         ''' 
@@ -84,15 +92,14 @@ class mainWindow:
 
         if whichBotton == 'Start' and self.lives != 0:
             self.highscoreFrame.showFrame(False)
-            self.tmp = self.internalCore.curerntLevelList()
             self.buttonFrame.showFrame(False)
-            countdownWindow(self.root, self.buttonFrame, self.tmp)
+            countdownWindow(self.root, self.buttonFrame,self.tmpLevelSeq)
             self.buttonFrame.showFrame(True)
-            print('Start Button')
+            print('Start Button',self.tmpLevelSeq)
 
         elif whichBotton == 'Highscores':
-            tmp = self.scoresheet.getString()
-            self.highscoreFrame.changeHighscoreFrame(tmp)
+            highscore_var = self.scoresheet.getString()
+            self.highscoreFrame.changeHighscoreFrame(highscore_var)
             self.buttonFrame.showFrame(False)
             self.highscoreFrame.showFrame(True)
             print('Highscores Button')
@@ -108,6 +115,7 @@ class mainWindow:
             self.highscoreFrame.showFrame(False)
             print('Back Button')
 
+
     def reset(self):
         ''' 
                 Syfte: Does not start simulaton only restart internals
@@ -116,13 +124,10 @@ class mainWindow:
         '''
         self.level = 1
         self.lives = 3
+        self.tmpLevelSeq = self.levelSeqMaker(self.tmpLevelSeq)
         self.labelFrame.chageLabelFrame(self.level, self.lives)
-        self.internalCore.resetGame(self.level)
-        self.internalCore.levelSeqMaker()
+        print('Reseting')
 
-        print('\nReseting...')
-        print('new seq: ', self.internalCore.curerntLevelList())
-        print('Press start when you are ready!')
 
     def colourButtons(self, event):
         ''' 
@@ -137,11 +142,15 @@ class mainWindow:
 		
     def liveComparison(self,colour):
         
-        if len(self.tmp) != 0:
-            cpUcolor = self.tmp.pop(0)
-        if cpUcolor != colour:
-            self.restartLevel()
-            print('Restarting, Wrong Color')
+        tempSeq = self.tmpLevelSeq
+        if len(tempSeq) != 0:
+            cpUcolor = tempSeq.pop(0)
+            if cpUcolor != colour:
+                self.restartLevel()
+            elif self.lives < 0:
+                self.buttonFrame.showFrame(False)
+                self.scoreFrame.showFrame(True)
+                print('Restarting, Wrong Color')
         else:
             self.nextLevel()
             print('Next level')
@@ -168,9 +177,8 @@ class mainWindow:
         self.buttonFrame.showFrame(False)
         self.level = self.level + 1
         self.labelFrame.chageLabelFrame(self.level, self.lives)
-        self.internalCore = InternalCore(self.level)
-        self.tmp = self.internalCore.curerntLevelList()
-        countdownWindow(self.root, self.buttonFrame, self.tmp)
+        self.tmpLevelSeq = self.levelSeqMaker(self.tmpLevelSeq)
+        countdownWindow(self.root, self.buttonFrame,self.tmpLevelSeq)
         self.buttonFrame.showFrame(True)
 
     def restartLevel(self):
@@ -200,9 +208,19 @@ class mainWindow:
         self.buttonFrame.showFrame(False)
         self.lives = self.lives - 1
         self.labelFrame.chageLabelFrame(self.level, self.lives)
-        self.tmp = self.internalCore.curerntLevelList()
-        countdownWindow(self.root, self.buttonFrame, self.tmp)
+        countdownWindow(self.root, self.buttonFrame,self.tmpLevelSeq)
         self.buttonFrame.showFrame(True)
 
+    def levelSeqMaker(self,level):
+        ''' 
+            Syfte: 
+            ReturvÃ¤rde: 
+            Kommentarer: 
+        ''' 
+        self.tmpLevelSeq = []
+        for i in range(self.level):
+            randomColor = random.choice('RYGB')
+            self.tmpLevelSeq.append(randomColor)
+        return self.tmpLevelSeq
 
 mainWindow()

@@ -36,9 +36,9 @@ def countdownImageSwap(self, counter = False):
 #from ButtonFrame import ButtonFrame
 
 class countdownWindow():
-    def __init__(self, root, buttonframe, level):
-        self.level = level
-        self.buttonframe = buttonframe
+    def __init__(self, root, buttonFrame, tmpLevelSeq):
+        self.tmpLevelSeq = tmpLevelSeq
+        self.buttonFrame = buttonFrame
         self.countlabel = Label()
         self.countlabel.pack()
         self.timer3 = PhotoImage(file="3timer.png")
@@ -58,8 +58,8 @@ class countdownWindow():
 #When countdown reaches 0 the blink pattern will start
         if self.t == 1:
             self.countlabel.pack_forget()
-        if self.t == 0:
-            self.buttonframe.simulation(self.level)
+        if self.t == 0:            
+            self.buttonFrame.simulation(self.tmpLevelSeq)
         else:
             self.t = self.t - 1
             self.countlabel.after(1000, self.countdownImageSwap)
