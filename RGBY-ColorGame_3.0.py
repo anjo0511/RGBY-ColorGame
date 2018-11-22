@@ -51,7 +51,7 @@ class mainWindow:
             ReturvÃ¤rde: 
             Kommentarer: 
         '''
-        self.root.title('RGBY-ColorGame 1.0')
+        self.root.title('RGBY-ColorGame 3.0')
         self.root.resizable(width=False, height=False)
         width_of_window = 600
         height_of_window = 500
