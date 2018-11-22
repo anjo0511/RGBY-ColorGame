@@ -8,14 +8,13 @@ This class is done nothing else needs to be adjusted
 '''
 class ScoreFrame():
 
-    def __init__(self,root,level):
+    def __init__(self,root):
         ''' 
             Syfte: 
             ReturvÃ¤rde: 
             Kommentarer: 
         ''' 
-        self.root = root        
-        self.level = level
+        self.root = root       
         self.scoreFrameLayout()
         self.scoreSheet = ScoreSheet()
         
@@ -40,7 +39,7 @@ class ScoreFrame():
         infoLabel = Label(self.inputFrame,text='Submit your record',font='Times 12 bold',pady=15)
         levelLable = Label(self.inputFrame,textvariable= self.scoreVariable ,font='Times 12 bold',pady=5)
         
-        self.chageScoreFrame(self.level)              
+        self.chageScoreFrame(' ')              
        
         infoLabel.grid(           row=0, columnspan=2)
         levelLable.grid(          row=1, columnspan=2)
@@ -55,8 +54,9 @@ class ScoreFrame():
             Syfte: 
             ReturvÃ¤rde: 
             Kommentarer: 
-        '''        
-        self.scoreVariable.set('Level: '+ str(level))
+        '''  
+        self.level = level      
+        self.scoreVariable.set('Level: '+ str(self.level))
     
     def storeHighScore(self,event):
         ''' 

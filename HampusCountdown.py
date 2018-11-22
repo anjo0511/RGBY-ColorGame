@@ -65,6 +65,10 @@ class countdownWindow():
             self.countlabel.after(1000, self.countdownImageSwap)
 
 """
-root = countdownWindow()
+root=Tk()
+bufr = Frame(root)
+bufr.pack()
+lista=['R','B']
+countdownWindow(root, bufr, lista)
 root.mainloop()
 """

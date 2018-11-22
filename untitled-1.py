@@ -27,8 +27,9 @@ class mainWindow:
         '''
         self.level = 1
         self.lives = 3
+        '''
         self.tmpLevelSeq=[]
-        self.tmpLevelSeq = self.levelSeqMaker(self.tmpLevelSeq)
+        '''
 
         self.root = Tk()
         self.startingOrder()
@@ -44,7 +45,7 @@ class mainWindow:
         self.highscoreFrame = HighScoreFrame(self.root)
         self.labelFrame = LabelFrame_S(self.root, self.level, self.lives)
         self.buttonFrame = ButtonFrame(self.root)
-        self.scoreFrame = ScoreFrame(self.root, self.level)
+        self.scoreFrame = ScoreFrame(self.root)
         self.scoresheet = ScoreSheet()
         self.setNewLinksToFrames()
 
@@ -91,10 +92,12 @@ class mainWindow:
         whichBotton = event.widget.cget('text')
 
         if whichBotton == 'Start' and self.lives != 0:
+            self.tmpLevelSeq = self.levelSeqMaker(self.level)            
             self.highscoreFrame.showFrame(False)
             self.buttonFrame.showFrame(False)
             countdownWindow(self.root, self.buttonFrame,self.tmpLevelSeq)
             self.buttonFrame.showFrame(True)
+            self.setNewLinksToFrames()
             print('Start Button',self.tmpLevelSeq)
 
         elif whichBotton == 'Highscores':
@@ -122,7 +125,7 @@ class mainWindow:
         '''
         self.level = 1
         self.lives = 3
-        self.tmpLevelSeq = self.levelSeqMaker(self.tmpLevelSeq)
+        self.tmpLevelSeq = self.levelSeqMaker(self.level)
         self.labelFrame.chageLabelFrame(self.level, self.lives)
         
         messagebox.showinfo('Restar Done',
@@ -152,18 +155,15 @@ class mainWindow:
 		
     def liveComparison(self,colour):
         
-        tempSeq = self.tmpLevelSeq
-        if len(tempSeq) != 0:
-            cpUcolor = tempSeq.pop(0)
-            if cpUcolor != colour:
+        
+        print('*********************************************',self.tmpLevelSeq)
+        if self.tmpLevelSeq != []:
+            cpUcolor = self.tmpLevelSeq.pop(0)
+            if cpUcolor != colour:                               
                 self.restartLevel()
-            elif self.lives < 0:
-                self.buttonFrame.showFrame(False)
-                self.scoreFrame.showFrame(True)
-                print('Restarting, Wrong Color')
-        else:
-            self.nextLevel()
-            print('Next level')
+            elif cpUcolor == colour and self.tmpLevelSeq == []:
+                self.nextLevel()
+                print('Next level')
 
 
     def nextLevel(self):
@@ -187,8 +187,9 @@ class mainWindow:
         self.buttonFrame.showFrame(False)
         self.level = self.level + 1
         self.labelFrame.chageLabelFrame(self.level, self.lives)
-        self.tmpLevelSeq = self.levelSeqMaker(self.tmpLevelSeq)
+        self.tmpLevelSeq = self.levelSeqMaker(self.level)
         countdownWindow(self.root, self.buttonFrame,self.tmpLevelSeq)
+        self.setNewLinksToFrames()
         self.buttonFrame.showFrame(True)
 
     def restartLevel(self):
@@ -197,17 +198,20 @@ class mainWindow:
                 ReturvÃ¤rde: 
                 Kommentarer: 
         '''
-        if self.lives == 0:
-            var_1 = 'You dont have any lives left, reset the game!'
-            tmpMsg1 = messagebox.showwarning("Loser", var_1)
-            if tmpMsg1 == 'ok':
-                self.buttonFrame.showFrame(False)
-
-        else:
+        if self.lives > 1:
             var_2 = "Oops you got it wrong, click to restart level"
             tmpMsg2 = messagebox.showinfo("You lost a live", var_2)
             if tmpMsg2 == 'ok':
                 self.restartLevelCommands()
+
+        else:
+            var_1 = 'You dont have any lives left, reset the game!'
+            tmpMsg1 = messagebox.showwarning("Loser", var_1)
+            if tmpMsg1 == 'ok':
+                self.buttonFrame.showFrame(False)                
+                self.scoreFrame.chageScoreFrame(self.level)
+                self.scoreFrame.showFrame(True)
+                self.resetButton()
 
     def restartLevelCommands(self):
         ''' 
@@ -216,9 +220,11 @@ class mainWindow:
                 Kommentarer: 
         '''
         self.buttonFrame.showFrame(False)
-        self.lives = self.lives - 1
+        self.lives = self.lives-1
+        self.tmpLevelSeq = self.levelSeqMaker(self.level)
         self.labelFrame.chageLabelFrame(self.level, self.lives)
         countdownWindow(self.root, self.buttonFrame,self.tmpLevelSeq)
+        self.setNewLinksToFrames()
         self.buttonFrame.showFrame(True)
 
     def levelSeqMaker(self,level):
@@ -229,7 +235,7 @@ class mainWindow:
             Kommentarer: 
         ''' 
         self.tmpLevelSeq = []
-        for i in range(self.level):
+        for i in range(level):
             randomColor = random.choice('RYGB')
             self.tmpLevelSeq.append(randomColor)
         return self.tmpLevelSeq

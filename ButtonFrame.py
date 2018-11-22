@@ -51,6 +51,11 @@ class ButtonFrame:
         self.button_B.bind('<ButtonRelease-1>', self.function)
         self.button_Y.bind('<ButtonRelease-1>',self.function)
        
+    def disableButtons(self):
+        self.button_R.bind('<ButtonRelease-2>',self.nothing)
+        self.button_G.bind('<ButtonRelease-2>', self.nothing)
+        self.button_B.bind('<ButtonRelease-2>', self.nothing)
+        self.button_Y.bind('<ButtonRelease-2>',self.nothing)
 
     def showFrame(self, bol=None):
         ''' 
@@ -63,26 +68,15 @@ class ButtonFrame:
         elif bol is False:
             self.buttonFrame.pack_forget()
 
-    def disbleButtons(self,bol=None):
-        if bol is True:
-            self.button_R.config(state=DISABLED)
-            self.button_G.config(state=DISABLED)
-            self.button_B.config(state=DISABLED)
-            self.button_Y.config(state=DISABLED)
-
-        elif bol is False:
-            self.button_R.config(state=ACTIVE)
-            self.button_G.config(state=ACTIVE)
-            self.button_B.config(state=ACTIVE)
-            self.button_Y.config(state=ACTIVE)
-
-
+    def nothing(self,event):
+        pass
     def simulation(self,tmpLevelSeq):
         ''' 
             Syfte: 
             ReturvÃ¤rde: 
             Kommentarer: 
-        '''                       
+        '''   
+        self.disableButtons()                 
         print('Current level seq --->',tmpLevelSeq)        
         time.sleep(1)
         for eachColor in tmpLevelSeq:
