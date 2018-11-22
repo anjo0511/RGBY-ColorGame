@@ -1,28 +1,29 @@
 # -*- coding: utf-8 -*-
-
+#Written by Andreé Johnsson <bio13ajn@cs.umu.se> and Hampus Silverlind <@cs.umu.se>
+#Course Application Programming in Python, 7.5 Credits at Umea University.
+#Usage requires permission by the author.
+#
 from tkinter import *
-import time, random
+from tkinter import messagebox
+import time
 
 class ButtonFrame:
-
     def __init__(self, root):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: Creates a frame with colour buttons inside 
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''
         self.root = root
-
         self.buttonFrame = Frame(self.root,bd=2,relief='solid',height=150,width=200)
-
         self.colourButtonLayout()
 
 
     def colourButtonLayout(self):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: The base layout of the buttons i.e the apperience and position.
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''
         self.button_R = Button(self.buttonFrame, text='R', bg='red',
                           height=4, width=8, bd=7, relief='raised')
@@ -45,36 +46,53 @@ class ButtonFrame:
 
 
     def setLinktoButtons(self,function):
+        ''' 
+            Syfte: Enables to set a link to the buttons from another file
+                and bind it to a given function
+            ReturvÃ¤rde: -
+            Kommentarer: -
+        '''        
         self.function = function
         self.button_R.bind('<ButtonRelease-1>',self.function)
         self.button_G.bind('<ButtonRelease-1>', self.function)
         self.button_B.bind('<ButtonRelease-1>', self.function)
         self.button_Y.bind('<ButtonRelease-1>',self.function)
        
+
     def disableButtons(self):
+        ''' 
+            Syfte: Dissconnects the buttonclick to anothe button
+            ReturvÃ¤rde: -
+            Kommentarer: Used before simulation to avid user interaction
+        '''        
         self.button_R.bind('<ButtonRelease-2>',self.nothing)
         self.button_G.bind('<ButtonRelease-2>', self.nothing)
         self.button_B.bind('<ButtonRelease-2>', self.nothing)
         self.button_Y.bind('<ButtonRelease-2>',self.nothing)
 
+
     def showFrame(self, bol=None):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: Makes the frame visible in the root window
+            ReturvÃ¤rde: -
+            Kommentarer: The order in which is called relative to the other 
+            widgets are important using the pack method.
         '''
         if bol is True:
             self.buttonFrame.pack()
         elif bol is False:
             self.buttonFrame.pack_forget()
 
+
     def nothing(self,event):
         pass
+
+
     def simulation(self,tmpLevelSeq):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: Simulates botton press given a list of colors
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''   
         self.disableButtons()                 
         print('Current level seq --->',tmpLevelSeq)        
@@ -99,3 +117,8 @@ class ButtonFrame:
                 self.button_Y.flash()
                 self.button_Y.after(2000, lambda:self.button_Y.configure(activebackground ='yellow'))
             time.sleep(0.5)
+
+        var_startinfo = "Now it is your turn!!"
+        time.sleep(0.4)
+        messagebox.showinfo('', var_startinfo)
+

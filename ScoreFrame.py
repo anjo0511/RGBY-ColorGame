@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
-
+#Written by Andreé Johnsson <bio13ajn@cs.umu.se> and Hampus Silverlind <@cs.umu.se>
+#Course Application Programming in Python, 7.5 Credits at Umea University.
+#Usage requires permission by the author.
+#
 from tkinter import *
 from ScoreSheet import ScoreSheet
 
-'''
-This class is done nothing else needs to be adjusted
-'''
 class ScoreFrame():
-
     def __init__(self,root):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: Makes a frame to take in the highscore
+            ReturvÃ¤rde: -
+            Kommentarer: -
         ''' 
         self.root = root       
         self.scoreFrameLayout()
@@ -21,9 +20,9 @@ class ScoreFrame():
 
     def scoreFrameLayout(self):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: layout of the frame 
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''           
         self.inputFrame = Frame(self.root, bd=4, relief='solid', padx=50)    
         
@@ -39,7 +38,7 @@ class ScoreFrame():
         infoLabel = Label(self.inputFrame,text='Submit your record',font='Times 12 bold',pady=15)
         levelLable = Label(self.inputFrame,textvariable= self.scoreVariable ,font='Times 12 bold',pady=5)
         
-        self.chageScoreFrame(' ')              
+        self.chageScoreFrame('')              
        
         infoLabel.grid(           row=0, columnspan=2)
         levelLable.grid(          row=1, columnspan=2)
@@ -49,20 +48,24 @@ class ScoreFrame():
         self.button1.grid(        row=4, columnspan=2)
         self.label_meassage.grid( row=5, columnspan=2)
     
+
     def chageScoreFrame(self,level):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: changes the score frame
+            ReturvÃ¤rde: -
+            Kommentarer: Makes the level global avalible for storeHighScore()
         '''  
         self.level = level      
         self.scoreVariable.set('Level: '+ str(self.level))
     
+
     def storeHighScore(self,event):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: Define rules for the kind of entry, the game expects
+            that is predefined lenght and returns meassages to the user
+            in order to get the correct input and later stores is in the higscore list
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''
         name = self.entry1.get()
         if name == '':
@@ -72,11 +75,8 @@ class ScoreFrame():
             self.entry1.after(300,lambda: self.entry1.config(bg='white'))
             
         elif not len(name) > 15:
-
-            self.scoreSheet.scoreWrite(name,self.level)
-                   
+            self.scoreSheet.scoreWrite(name,self.level)                   
             self.entry1.delete(0,END)
-
             self.label_meassage['text']= 'Thanks '
             self.label_meassage.after(700, lambda: self.label_meassage.config(text=''))
             self.inputFrame.after(600, lambda: self.inputFrame.pack_forget())
@@ -84,15 +84,15 @@ class ScoreFrame():
         else:
             self.entry1['bg']= '#f08080'            
             self.entry1.after(300,lambda: self.entry1.config(bg='white'))
-
             self.label_meassage['text']= 'Shorter, less than 15 characters'
             self.label_meassage.after(1000, lambda: self.label_meassage.config(text=''))            
 
+
     def showFrame(self, bol=None):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: Shows hides frame
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''         
         if bol is True:
             self.inputFrame.pack()

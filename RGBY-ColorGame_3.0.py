@@ -1,38 +1,31 @@
 # -*- coding: utf-8 -*-
-
+#Written by Andreé Johnsson <bio13ajn@cs.umu.se> and Hampus Silverlind <@cs.umu.se>
+#Course Application Programming in Python, 7.5 Credits at Umea University.
+#Usage requires permission by the author.
+#
 from tkinter import *
 from tkinter import messagebox
 import time, random
 
 from HighscoreFrame import HighScoreFrame
+from Countdown import countdownWindow
 from LabelFrame_S import LabelFrame_S
 from ButtonFrame import ButtonFrame
 from ScoreFrame import ScoreFrame
 from ScoreSheet import ScoreSheet
 
-from HampusCountdown import countdownWindow
-
-'''
-dont forget to add the scorewindow when losing
-Everything works there is just something wrong with 
-reset and restart 
-'''
 
 class mainWindow:
     def __init__(self):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: Starts up with an Instructions Popup followed by the game.
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''
-        self.level = 1
-        self.lives = 3
-        '''
-        self.tmpLevelSeq=[]
-        '''
-
         self.root = Tk()
         self.startingOrder()
+        var_startinfo = "1.A blinking pattern is presented, wait for your turn.\n\n2.Repeat the pattern by pressing the buttons.\n\n3.Submit your highscore.\n\n4.Now you are ready, press start.\n\n5.Pro-tip: The start-button also restarts the level in case you are sleepy..zZzz"
+        messagebox.showinfo("What is the game is all about", var_startinfo)
         self.root.mainloop()
 
     def startingOrder(self):
@@ -43,16 +36,13 @@ class mainWindow:
         '''
         self.mainWinLayout()
         self.highscoreFrame = HighScoreFrame(self.root)
-        self.labelFrame = LabelFrame_S(self.root, self.level, self.lives)
+        self.labelFrame = LabelFrame_S(self.root)
         self.buttonFrame = ButtonFrame(self.root)
         self.scoreFrame = ScoreFrame(self.root)
         self.scoresheet = ScoreSheet()
+        
         self.setNewLinksToFrames()
-
-        self.labelFrame.showFrame(True)
-        self.buttonFrame.showFrame(True)
-        self.scoreFrame.showFrame(False)
-        self.highscoreFrame.showFrame(False)
+        self.resetButton()
 
 
     def mainWinLayout(self):
@@ -75,9 +65,9 @@ class mainWindow:
 
     def setNewLinksToFrames(self):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: To be able to use the buttons in this file
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''
         self.labelFrame.setLinktoNavButtons(self.navButtons)
         self.buttonFrame.setLinktoButtons(self.colourButtons)
@@ -85,19 +75,14 @@ class mainWindow:
 
     def navButtons(self, event):
         ''' 
-            Syfte: 
+            Syfte: Menubar response gets handled here and redirected
             ReturvÃ¤rde: -
             Kommentarer: -
         '''
         whichBotton = event.widget.cget('text')
 
         if whichBotton == 'Start' and self.lives != 0:
-            self.tmpLevelSeq = self.levelSeqMaker(self.level)            
-            self.highscoreFrame.showFrame(False)
-            self.buttonFrame.showFrame(False)
-            countdownWindow(self.root, self.buttonFrame,self.tmpLevelSeq)
-            self.buttonFrame.showFrame(True)
-            self.setNewLinksToFrames()
+            self.startButton()
             print('Start Button',self.tmpLevelSeq)
 
         elif whichBotton == 'Highscores':
@@ -105,32 +90,52 @@ class mainWindow:
             self.highscoreFrame.changeHighscoreFrame(highscore_var)
             self.buttonFrame.showFrame(False)
             self.highscoreFrame.showFrame(True)
+            self.scoreFrame.showFrame(False)
             print('Highscores Button')
 
         elif whichBotton == 'Reset':
             print('Reset Button')
-            self.resetButton()
+            self.resetButton(True)
 
         elif whichBotton == 'Back' and self.lives != 0:
             self.buttonFrame.showFrame(True)
             self.highscoreFrame.showFrame(False)
+            self.scoreFrame.showFrame(False)
             print('Back Button')
 
 
-    def resetButton(self):
+    def startButton(self):
         ''' 
-                Syfte: Does not start simulaton only restart internals
-                ReturvÃ¤rde: 
-                Kommentarer: 
+            Syfte: Everything that needs to be done before start simulation
+            ReturvÃ¤rde: -
+            Kommentarer: -
+        '''        
+        self.scoreFrame.showFrame(False)
+        self.tmpLevelSeq = self.levelSeqMaker(self.level)            
+        self.highscoreFrame.showFrame(False)
+        self.buttonFrame.showFrame(False)
+        countdownWindow(self.root, self.buttonFrame,self.tmpLevelSeq)
+        self.buttonFrame.showFrame(True)
+        self.setNewLinksToFrames()
+
+
+    def resetButton(self,bol = None):
+        ''' 
+            Syfte: Does not start simulaton only restart internals
+            ReturvÃ¤rde: 
+            Kommentarer: 
         '''
         self.level = 1
         self.lives = 3
-        self.tmpLevelSeq = self.levelSeqMaker(self.level)
+        self.tmpLevelSeq = []
+        self.labelFrame.showFrame(True)
+        self.highscoreFrame.showFrame(False)
         self.labelFrame.chageLabelFrame(self.level, self.lives)
-        
-        messagebox.showinfo('Restar Done',
-        'Now you can give it another try, press start whenever you are ready, good luck :)')
-        print('........Reseting Done........\n')
+
+        if bol is True:
+            messagebox.showinfo('Restar Done',
+            'Now you can give it another try, press start whenever you are ready, good luck :)')
+            print('........Reseting Done........\n')
 
 
     def colourButtons(self, event):
@@ -140,7 +145,7 @@ class mainWindow:
             Kommentarer: Prints which colour to display on terminal 
             for easy use.
         '''
-        #event.widget.bell(displayof=0)
+        event.widget.bell(displayof=0)
         whichColour = event.widget.cget('text')       
         self.liveComparison(whichColour)
 		
@@ -153,10 +158,14 @@ class mainWindow:
         elif whichColour == 'Y':
             print('---> user Yellow')
 		
+
     def liveComparison(self,colour):
-        
-        
-        print('*********************************************',self.tmpLevelSeq)
+        ''' 
+            Syfte: compares the computer seq with the button pressed 
+            ReturvÃ¤rde: -
+            Kommentarer: -
+        '''    
+        print('***Level sequence****',self.tmpLevelSeq)
         if self.tmpLevelSeq != []:
             cpUcolor = self.tmpLevelSeq.pop(0)
             if cpUcolor != colour:                               
@@ -168,21 +177,23 @@ class mainWindow:
 
     def nextLevel(self):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: upon wining we get popup and change the settings
+                    by calling nextlevelcommands 
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''
-        var_0 = "Congratulations, you made it!!\nClick to continue to the next level."
-
-        tmpMsg0 = messagebox.showinfo("Winner", var_0)
+        var_0 = "Nice, you made it to the next round."
+        tmpMsg0 = messagebox.showinfo("Winner winner chicken dinner", var_0)
         if tmpMsg0 == 'ok':
             self.nextLevelCommands()
 
+
     def nextLevelCommands(self):
         ''' 
-                Syfte: 
-                ReturvÃ¤rde: 
-                Kommentarer: 
+            Syfte: Everything that needs to be done in order to go to the
+                    next level
+            ReturvÃ¤rde: 
+            Kommentarer: 
         '''
         self.buttonFrame.showFrame(False)
         self.level = self.level + 1
@@ -192,11 +203,13 @@ class mainWindow:
         self.setNewLinksToFrames()
         self.buttonFrame.showFrame(True)
 
+
     def restartLevel(self):
         ''' 
-                Syfte: 
-                ReturvÃ¤rde: 
-                Kommentarer: 
+            Syfte: check how many life and depending on that it redirects to 
+            other functions.
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''
         if self.lives > 1:
             var_2 = "Oops you got it wrong, click to restart level"
@@ -205,19 +218,20 @@ class mainWindow:
                 self.restartLevelCommands()
 
         else:
-            var_1 = 'You dont have any lives left, reset the game!'
+            var_1 = 'You lost, the game will reset, but you can still submit your highscore.'
             tmpMsg1 = messagebox.showwarning("Loser", var_1)
             if tmpMsg1 == 'ok':
                 self.buttonFrame.showFrame(False)                
-                self.scoreFrame.chageScoreFrame(self.level)
+                self.scoreFrame.chageScoreFrame(self.level-1)
                 self.scoreFrame.showFrame(True)
-                self.resetButton()
+                self.resetButton(True)
+
 
     def restartLevelCommands(self):
         ''' 
-                Syfte: 
-                ReturvÃ¤rde: 
-                Kommentarer: 
+            Syfte: Everything needed to start from scratch
+            ReturvÃ¤rde: 
+            Kommentarer: 
         '''
         self.buttonFrame.showFrame(False)
         self.lives = self.lives-1
@@ -226,6 +240,7 @@ class mainWindow:
         countdownWindow(self.root, self.buttonFrame,self.tmpLevelSeq)
         self.setNewLinksToFrames()
         self.buttonFrame.showFrame(True)
+
 
     def levelSeqMaker(self,level):
         ''' 
@@ -240,4 +255,7 @@ class mainWindow:
             self.tmpLevelSeq.append(randomColor)
         return self.tmpLevelSeq
 
-mainWindow()
+
+if __name__ == "__main__":
+    mainWindow()
+

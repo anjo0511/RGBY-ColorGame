@@ -1,36 +1,29 @@
 # -*- coding: utf-8 -*-
-
+#Written by Andreé Johnsson <bio13ajn@cs.umu.se> and Hampus Silverlind <@cs.umu.se>
+#Course Application Programming in Python, 7.5 Credits at Umea University.
+#Usage requires permission by the author.
+#
 from tkinter import *
 
 
-class LabelFrame_S:
-    
-    def __init__(self,root,level,lives):
+class LabelFrame_S:    
+    def __init__(self,root):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: Makes a frame with labels and buttons.
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''
-        self.level=level
-        self.lives=lives
-
         self.root = root
-        self.scoreFrame = Frame(
-                                self.root,
-                                bd=2,
-                                relief='solid',
-                                height=100,
-                                width=600,
-                                pady=20,
-                                padx=200)
+        self.scoreFrame = Frame(self.root,bd=2,relief='solid',height=100,width=600,pady=20,padx=200)
         self.topLabels()
         self.navegationButtons()
 
+
     def navegationButtons(self):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: default layout of buttons
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''        
         self.navBotton = Button(self.scoreFrame,text='Start', padx=5,pady=5,activebackground='blue')
         self.navBotton2 = Button(self.scoreFrame,text='Reset', padx=5,pady=5,activebackground='blue')
@@ -45,9 +38,9 @@ class LabelFrame_S:
 
     def setLinktoNavButtons(self,function):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: binds the buttons to a function
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''
         self.function = function
         self.navBotton.bind('<ButtonRelease-1>', self.function)
@@ -58,9 +51,9 @@ class LabelFrame_S:
 
     def topLabels(self):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: The label is created with level and lives 0 but just once.
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''
         self.levelLable = StringVar()
         level_Label = Label(self.scoreFrame,textvariable=self.levelLable, font= 'Times 18',pady=5)
@@ -69,14 +62,14 @@ class LabelFrame_S:
         self.livesLable= StringVar()
         lives_Label = Label(self.scoreFrame,textvariable=self.livesLable,font= 'Times 18',pady=15)    
         lives_Label.pack()
-
-        self.chageLabelFrame(self.level,self.lives)
+        self.chageLabelFrame(0,0)
    
+
     def chageLabelFrame(self,level,lives):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: changes the top label to match the current level and lives
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''
         self.levelLable.set('Level: '+str(level))
         self.livesLable.set('Lives: '+str(lives))
@@ -84,7 +77,7 @@ class LabelFrame_S:
 
     def showFrame(self, bol=None):
         ''' 
-            Syfte: 
+            Syfte: Shows hides Frame
             ReturvÃ¤rde: 
             Kommentarer: 
         '''
@@ -93,4 +86,3 @@ class LabelFrame_S:
         elif bol is False:
             self.scoreFrame.pack_forget()  
      
-
