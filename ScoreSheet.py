@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#Written by Andreé Johnsson <bio13ajn@cs.umu.se> and Hampus Silverlind <@cs.umu.se>
+#Written by Andreé Johnsson <bio13ajn@cs.umu.se> and Hampus Silverlind <bio15hsd@cs.umu.se>
 #Course Application Programming in Python, 7.5 Credits at Umea University.
 #Usage requires permission by the author.
 #
@@ -8,7 +8,7 @@ import os
 import pickle
 
 '''
-Reason why we chose picles to store the score sheet:
+Reason why we chose pickles to store the score sheet:
 Pickling stores only one pyhton object at the time, 
 the idea is to be able to store it in an external file 
 to later be able to restore the variable in the current session.

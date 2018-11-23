@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-#Written by Andreé Johnsson <bio13ajn@cs.umu.se> and Hampus Silverlind <@cs.umu.se>
+#Written by Andreé Johnsson <bio13ajn@cs.umu.se> and Hampus Silverlind <bio15hsd@cs.umu.se>
 #Course Application Programming in Python, 7.5 Credits at Umea University.
 #Usage requires permission by the author.
 #
 from tkinter import *
 
-class countdownWindow():
+class Countdown():
     def __init__(self, root, buttonFrame, tmpLevelSeq):
         ''' 
             Syfte: Makes a frame that packs in the images

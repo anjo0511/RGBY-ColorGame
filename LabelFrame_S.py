@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-#Written by Andreé Johnsson <bio13ajn@cs.umu.se> and Hampus Silverlind <@cs.umu.se>
+#Written by Andreé Johnsson <bio13ajn@cs.umu.se> and Hampus Silverlind <bio15hsd@cs.umu.se>
 #Course Application Programming in Python, 7.5 Credits at Umea University.
 #Usage requires permission by the author.
 #
 from tkinter import *
-
 
 class LabelFrame_S:    
     def __init__(self,root):
@@ -15,6 +14,7 @@ class LabelFrame_S:
         '''
         self.root = root
         self.scoreFrame = Frame(self.root,bd=2,relief='solid',height=100,width=600,pady=20,padx=200)
+        self.scoreFrame["bg"] = "bisque3"
         self.topLabels()
         self.navegationButtons()
 
@@ -25,10 +25,10 @@ class LabelFrame_S:
             ReturvÃ¤rde: -
             Kommentarer: -
         '''        
-        self.navBotton = Button(self.scoreFrame,text='Start', padx=5,pady=5,activebackground='blue')
-        self.navBotton2 = Button(self.scoreFrame,text='Reset', padx=5,pady=5,activebackground='blue')
-        self.navBotton3 = Button(self.scoreFrame,text='Highscores', padx=5,pady=5,activebackground='blue')
-        self.navBotton4 = Button(self.scoreFrame,text='Back', padx=5,pady=5,activebackground='blue')
+        self.navBotton = Button(self.scoreFrame,text='Start', padx=5,pady=5,activebackground= "papaya whip",bg="bisque3",relief=RAISED,bd=4)
+        self.navBotton2 = Button(self.scoreFrame,text='Reset', padx=5,pady=5,activebackground= "papaya whip",bg="bisque3",relief=RAISED,bd=4)
+        self.navBotton3 = Button(self.scoreFrame,text='Highscores', padx=5,pady=5,activebackground= "papaya whip",bg="bisque3",relief=RAISED,bd=4)
+        self.navBotton4 = Button(self.scoreFrame,text='Back',padx=5,pady=5,activebackground= "papaya whip",bg="bisque3",relief=RAISED,bd=4)
                 
         self.navBotton.pack()
         self.navBotton2.pack(side=LEFT)
@@ -62,6 +62,9 @@ class LabelFrame_S:
         self.livesLable= StringVar()
         lives_Label = Label(self.scoreFrame,textvariable=self.livesLable,font= 'Times 18',pady=15)    
         lives_Label.pack()
+
+        level_Label["bg"] = "bisque3"
+        lives_Label["bg"] = "bisque3"
         self.chageLabelFrame(0,0)
    
 

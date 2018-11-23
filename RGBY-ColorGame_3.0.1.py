@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#Written by Andreé Johnsson <bio13ajn@cs.umu.se> and Hampus Silverlind <@cs.umu.se>
+#Written by Andreé Johnsson <bio13ajn@cs.umu.se> and Hampus Silverlind <bio15hsd@cs.umu.se>
 #Course Application Programming in Python, 7.5 Credits at Umea University.
 #Usage requires permission by the author.
 #
@@ -8,12 +8,11 @@ from tkinter import messagebox
 import time, random
 
 from HighscoreFrame import HighScoreFrame
-from Countdown import countdownWindow
 from LabelFrame_S import LabelFrame_S
 from ButtonFrame import ButtonFrame
 from ScoreFrame import ScoreFrame
 from ScoreSheet import ScoreSheet
-
+from Countdown import Countdown
 
 class mainWindow:
     def __init__(self):
@@ -23,16 +22,19 @@ class mainWindow:
             Kommentarer: -
         '''
         self.root = Tk()
+        self.root["bg"] = "papaya whip"
         self.startingOrder()
         var_startinfo = "1.A blinking pattern is presented, wait for your turn.\n\n2.Repeat the pattern by pressing the buttons.\n\n3.Submit your highscore.\n\n4.Now you are ready, press start.\n\n5.Pro-tip: The start-button also restarts the level in case you are sleepy..zZzz"
-        messagebox.showinfo("What is the game is all about", var_startinfo)
+        messagebox.showinfo("What is the game is all about",var_startinfo)
+
         self.root.mainloop()
 
     def startingOrder(self):
         ''' 
-            Syfte: 
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            Syfte: This function only gets run once when an instance of this class
+            is made i.e the program is run and creates the basic framwwork of the hole game.
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''
         self.mainWinLayout()
         self.highscoreFrame = HighScoreFrame(self.root)
@@ -48,10 +50,10 @@ class mainWindow:
     def mainWinLayout(self):
         ''' 
             Syfte: Center the main window and gives it nice appearence
-            ReturvÃ¤rde: 
-            Kommentarer: 
+            ReturvÃ¤rde: -
+            Kommentarer: -
         '''
-        self.root.title('RGBY-ColorGame 3.0')
+        self.root.title('RGBY-ColorGame 3.0.1')
         self.root.resizable(width=False, height=False)
         width_of_window = 600
         height_of_window = 500
@@ -114,7 +116,7 @@ class mainWindow:
         self.tmpLevelSeq = self.levelSeqMaker(self.level)            
         self.highscoreFrame.showFrame(False)
         self.buttonFrame.showFrame(False)
-        countdownWindow(self.root, self.buttonFrame,self.tmpLevelSeq)
+        Countdown(self.root, self.buttonFrame,self.tmpLevelSeq)
         self.buttonFrame.showFrame(True)
         self.setNewLinksToFrames()
 
@@ -199,7 +201,7 @@ class mainWindow:
         self.level = self.level + 1
         self.labelFrame.chageLabelFrame(self.level, self.lives)
         self.tmpLevelSeq = self.levelSeqMaker(self.level)
-        countdownWindow(self.root, self.buttonFrame,self.tmpLevelSeq)
+        Countdown(self.root, self.buttonFrame,self.tmpLevelSeq)
         self.setNewLinksToFrames()
         self.buttonFrame.showFrame(True)
 
@@ -237,7 +239,7 @@ class mainWindow:
         self.lives = self.lives-1
         self.tmpLevelSeq = self.levelSeqMaker(self.level)
         self.labelFrame.chageLabelFrame(self.level, self.lives)
-        countdownWindow(self.root, self.buttonFrame,self.tmpLevelSeq)
+        Countdown(self.root, self.buttonFrame,self.tmpLevelSeq)
         self.setNewLinksToFrames()
         self.buttonFrame.showFrame(True)
 
