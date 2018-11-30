@@ -28,16 +28,16 @@ class ScoreFrame():
         self.inputFrame = Frame(self.root, bd=4, relief='solid', padx=50)    
         
         self.entry1 = Entry(self.inputFrame)                  
-        self.label_meassage=Label(self.inputFrame,bd=1,font='Times 11 bold',padx=10,pady=5)        
+        self.label_meassage=Label(self.inputFrame,bd=1,font='Times 11 bold',padx=10,pady=5,bg="papaya whip")        
         self.button1 = Button(self.inputFrame,font='Times 12 bold',text='Submit',bg='red',bd=7,relief='raised')
         
         self.button1.bind('<ButtonRelease-1>',self.storeHighScore)
 
         self.scoreVariable = StringVar()
-        spacer1 = Label(self.inputFrame)
-        nameLabel = Label(self.inputFrame,text='Name: ',font='Times 12 bold') 
-        infoLabel = Label(self.inputFrame,text='Submit your record',font='Times 12 bold',pady=15)
-        levelLable = Label(self.inputFrame,textvariable= self.scoreVariable ,font='Times 12 bold',pady=5)
+        spacer1 = Label(self.inputFrame,bg="papaya whip")
+        nameLabel = Label(self.inputFrame,text='Name: ',font='Times 12 bold',bg= "papaya whip") 
+        infoLabel = Label(self.inputFrame,text='Submit your record',font='Times 12 bold',pady=15,bg="papaya whip")
+        levelLable = Label(self.inputFrame,textvariable= self.scoreVariable ,font='Times 12 bold',pady=5,bg="papaya whip")
         
         self.chageScoreFrame('')              
        
